@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal | Rainbow Jobs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            --primary-color: #6366f1; 
+            --primary-hover: #818cf8;
+            --bg-dark: #0f172a; 
+            --card-dark: #1e293b; 
+            --text-light: #f8fafc;
+            --text-muted: #fdfdfd;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        body {
+            font-family: "Segoe UI Variable Display", "Segoe UI", -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent),
+                        radial-gradient(circle at bottom left, rgba(99, 102, 241, 0.1), transparent),
+                        var(--bg-dark);
+        }
+
+        .auth-card {
+            background: var(--card-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 450px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .brand-logo {
+            font-weight: 800;
+            font-size: 1.75rem;
+            letter-spacing: -1px;
+            text-decoration: none;
+            color: white !important;
+            display: block;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            background-color: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border-color);
+            color: white !important;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+        }
+
+        .form-control:focus {
+            background-color: rgba(15, 23, 42, 0.8);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .toggle-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .toggle-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Animation for switching forms */
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-card">
+        <a href="#" class="brand-logo">Rainbow<span style="color: var(--primary-color);">Jobs</span></a>
+
+        <div id="signInForm" class="auth-form active">
+            <h4 class="fw-bold mb-1">Welcome back</h4>
+            <p class=" small mb-4">Please enter your details to sign in.</p>
+
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" placeholder="name@student.com" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="form-check small">
+                        <input class="form-check-input" type="checkbox" id="remember">
+                        <label class="form-check-label " for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="small toggle-link">Forgot password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+
+            <p class="text-center mt-4 small ">
+                Don't have an account? <span class="toggle-link" onclick="toggleForm('signUp')">Sign up for free</span>
+            </p>
+        </div>
+
+        <div id="signUpForm" class="auth-form">
+            <h4 class="fw-bold mb-1">Create an account</h4>
+            <p class=" small mb-4">Join Rainbow Jobs to start your career.</p>
+
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-control" placeholder="John Doe" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" placeholder="name@student.com" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" placeholder="Create a password" required>
+                </div>
+                <div class="form-check small mb-4">
+                    <input class="form-check-input" type="checkbox" id="terms" required>
+                    <label class="form-check-label" for="terms">
+                        I agree to the <a href="#" class="toggle-link">Terms & Conditions</a>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+
+            <p class="text-center mt-4 small ">
+                Already have an account? <span class="toggle-link" onclick="toggleForm('signIn')">Sign in here</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm(type) {
+            const signIn = document.getElementById('signInForm');
+            const signUp = document.getElementById('signUpForm');
+
+            if (type === 'signUp') {
+                signIn.classList.remove('active');
+                signUp.classList.add('active');
+            } else {
+                signUp.classList.remove('active');
+                signIn.classList.add('active');
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
