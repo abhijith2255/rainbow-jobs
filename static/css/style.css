@@ -1,189 +1,92 @@
-/* Custom Pink Theme Variables */
+/* Color Palette */
 :root {
-    --pink-primary: #e83e8c;
-    --pink-hover: #d81b60;
-    --pink-light: #fce4ec;
-    --pink-gradient: linear-gradient(135deg, #e83e8c 0%, #ff8a65 100%);
-    --text-dark: #2d3436;
-    --text-muted: #636e72;
+    --emerald-deep: #064e3b;
+    --emerald-midnight: #022c22;
+    --gold: #fbbf24;
+    --gold-hover: #f59e0b;
+    --slate: #0f172a;
+    --white: #f8fafc;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--pink-light);
-    color: var(--text-dark);
+    background-color: var(--slate);
+    color: var(--white);
+    font-family: 'Outfit', sans-serif;
     overflow-x: hidden;
 }
 
-.text-pink {
-    color: var(--pink-primary) !important;
-}
+/* Typography */
+.main-title { font-family: 'Playfair Display', serif; font-weight: 900; }
+.italic-gold { font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold); }
+.gold-text { color: var(--gold); }
 
-/* Navbar */
-.fancy-navbar {
-    background-color: rgba(253, 242, 248, 0.9);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(232, 62, 140, 0.1);
-    transition: all 0.3s ease;
+/* Luxury Navbar */
+.nav-glass {
+    padding: 20px 0; transition: all 0.4s ease;
+    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), transparent);
 }
-.navbar-brand {
-    font-size: 1.6rem;
-    color: var(--text-dark) !important;
-}
-.nav-link {
-    color: var(--text-muted) !important;
-    font-weight: 500;
-}
-.nav-link:hover {
-    color: var(--pink-primary) !important;
-}
+.logo { font-weight: 800; letter-spacing: 2px; color: white !important; text-decoration: none; }
+.nav-link { color: white !important; text-transform: uppercase; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; opacity: 0.7; }
+.nav-link:hover { opacity: 1; color: var(--gold) !important; }
 
-/* Fancy Pink Button */
-.btn-fancy-pink {
-    background: var(--pink-gradient);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-weight: 600;
-    padding: 10px 25px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(232, 62, 140, 0.3);
+.btn-gold {
+    background: var(--gold); color: var(--emerald-midnight) !important; font-weight: 800; border-radius: 0;
+    padding: 10px 25px; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; transition: 0.3s;
 }
-.btn-fancy-pink:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(232, 62, 140, 0.5);
-    color: white;
-}
+.btn-gold:hover { transform: scale(1.05); background: white; }
 
-/* --- NEW: Hero Section with Beautiful Image --- */
-/* --- NEW: Hero Section with Beautiful Image --- */
-.hero-section {
-    padding: 160px 0 100px 0;
-    /* We split the background into separate, safe commands */
-    background-image: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(232, 62, 140, 0.5)), 
-                      url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
+/* Hero Parallax */
+.hero-parallax {
+    height: 90vh; display: flex; align-items: center; position: relative;
+    background: url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover; background-attachment: fixed; background-position: center;
 }
-.hero-title {
-    font-weight: 800;
-    font-size: 3.5rem;
-}
-.fancy-badge {
-    background-color: rgba(232, 62, 140, 0.3);
-    padding: 8px 16px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.85rem;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(6, 78, 59, 0.95) 0%, rgba(15, 23, 42, 0.8) 100%); }
+.hero-content { position: relative; z-index: 2; }
+.top-label { letter-spacing: 5px; font-size: 0.7rem; opacity: 0.6; display: block; margin-bottom: 1rem; }
 
-/* Search Glass */
-.search-glass {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 50px;
-    padding: 5px;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-}
-.search-glass:focus-within {
-    border-color: var(--pink-primary);
-    box-shadow: 0 0 20px rgba(232, 62, 140, 0.3) !important;
-}
+/* Search Box */
+.luxury-search-box { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 8px; max-width: 600px; border-radius: 4px; }
+.btn-gold-search { background: var(--gold); color: black; font-weight: 700; padding: 12px 30px; border: none; transition: 0.3s ease; }
+.btn-gold-search:hover { background: white; }
+.luxury-search-box input:focus { color: white; }
 
-/* --- NEW: Compact CEO Card --- */
-.ceo-card-compact {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
-    padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-left: 6px solid var(--pink-primary); /* Pink accent line on the left */
-    max-width: 380px;
-    margin-left: auto;
-    transition: transform 0.3s ease;
-}
-.ceo-card-compact:hover {
-    transform: translateY(-5px);
-}
-.ceo-img-compact {
-    width: 65px; /* Much smaller and cleaner */
-    height: 65px;
-    object-fit: cover;
-    border: 2px solid var(--pink-light);
-    box-shadow: 0 4px 10px rgba(232, 62, 140, 0.2);
-}
+/* CEO Floating Card */
+.ceo-float-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border: 1px solid rgba(251, 191, 36, 0.2); padding: 30px; border-radius: 4px; position: relative; }
+.ceo-avatar { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+.quote-text { font-style: italic; opacity: 0.7; font-size: 0.9rem; }
 
-/* Filter Buttons */
-.filter-btn {
-    background-color: white;
-    color: var(--text-muted);
-    border: 1px solid rgba(0,0,0,0.05);
-    border-radius: 50px;
-    padding: 8px 20px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-.filter-btn:hover {
-    background-color: var(--pink-light);
-    color: var(--pink-primary);
-}
-.filter-btn.active {
-    background: var(--pink-gradient);
-    color: white;
-    border: none;
-    box-shadow: 0 4px 15px rgba(232, 62, 140, 0.3);
-}
-
-/* Job Cards */
+/* --- CLEAN JOB CARDS (NO IMAGES) --- */
 .job-card {
-    background: white;
-    border: none;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    height: 100%;
+    background: rgba(2, 44, 34, 0.6); backdrop-filter: blur(10px);
+    border: 1px solid rgba(251, 191, 36, 0.15); border-radius: 16px;
+    height: 100%; transition: 0.4s ease; display: flex; flex-direction: column;
+    border-top: 4px solid var(--gold);
 }
-.job-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(232, 62, 140, 0.15);
+.job-card:hover { background: rgba(2, 44, 34, 0.95); border-color: var(--gold); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+.job-icon-badge {
+    width: 50px; height: 50px; background: rgba(251, 191, 36, 0.1); border: 1px solid var(--gold);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.3rem;
 }
-.card-icon-wrap {
-    width: 50px;
-    height: 50px;
-    border-radius: 15px;
-    background-color: var(--pink-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--pink-primary);
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
+.job-card-body { padding: 30px 25px; flex-grow: 1; display: flex; flex-direction: column; }
+.apply-btn-luxury { border: 1px solid rgba(255,255,255,0.2); color: white; padding: 6px 18px; border-radius: 50px; font-size: 0.85rem; transition: 0.3s; text-decoration: none; }
+.apply-btn-luxury:hover { background: var(--gold); color: black; border-color: var(--gold); }
 
-/* Footer */
-.footer-section {
-    background-color: white;
-    padding: 60px 0 20px 0;
-    border-top: 1px solid rgba(232, 62, 140, 0.1);
-}
-.footer-heading {
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 1.5rem;
-}
-.border-pink {
-    border-color: var(--pink-primary) !important;
-}
+/* Filters */
+.filter-btn { background: transparent; border: none; color: white; opacity: 0.5; font-weight: 600; padding: 5px 20px; transition: 0.3s; }
+.filter-btn.active { opacity: 1; color: var(--gold); border-bottom: 2px solid var(--gold); }
 
-/* Fade in animation for JS filtered jobs */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.fade-in {
-    animation: fadeIn 0.4s ease forwards;
+/* ANIMATIONS */
+.reveal { animation: revealIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes revealIn { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+
+/* =========================================
+   MOBILE TWEAKS (CEO VISIBILITY FIX)
+   ========================================= */
+@media (max-width: 768px) {
+    .main-title { font-size: 3rem; }
+    /* The FIX: height: auto allows the CEO card to fit! */
+    .hero-parallax { height: auto; min-height: 100vh; padding-top: 120px; padding-bottom: 60px; }
+    .job-card-body { padding: 25px 20px; }
+    .ceo-float-card { max-width: 350px; margin-left: auto; margin-right: auto; }
 }

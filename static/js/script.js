@@ -1,132 +1,67 @@
-// 1. Array of Demo Jobs
+// 1. Data Source (No Job Images)
 const jobData = [
-    {
-        id: 1,
-        title: "Frontend Developer",
-        company: "TechNova Solutions",
-        location: "Kochi, Kerala",
-        category: "it",
-        icon: "bi-laptop",
-        salary: "₹5,00,000 LPA"
-    },
-    {
-        id: 2,
-        title: "Office Administrator",
-        company: "City Plaza Group",
-        location: "Kozhikode, Kerala",
-        category: "admin",
-        icon: "bi-building",
-        salary: "₹20,000 / month"
-    },
-    {
-        id: 3,
-        title: "Sales Coordinator",
-        company: "Rainbow Retail Hub",
-        location: "Trivandrum, Kerala",
-        category: "sales",
-        icon: "bi-graph-up-arrow",
-        salary: "₹25,000 + Incentives"
-    },
-    {
-        id: 4,
-        title: "Junior Accountant",
-        company: "Malabar Trading Co.",
-        location: "Kozhikode, Kerala",
-        category: "finance",
-        icon: "bi-calculator",
-        salary: "₹22,000 / month"
-    },
-    {
-        id: 5,
-        title: "Python Django Engineer",
-        company: "Global Cloud Inc.",
-        location: "Remote",
-        category: "it",
-        icon: "bi-code-slash",
-        salary: "₹8,00,000 LPA"
-    },
-    {
-        id: 6,
-        title: "Marketing Executive",
-        company: "Creative Media",
-        location: "Kochi, Kerala",
-        category: "sales",
-        icon: "bi-megaphone",
-        salary: "₹30,000 / month"
-    }
+    { id: 1, title: "Executive Developer", company: "TechNova", category: "it", salary: "₹8 LPA", icon: "bi-laptop" },
+    { id: 2, title: "Chief of Staff", company: "City Plaza", category: "admin", salary: "₹40k/m", icon: "bi-building-gear" },
+    { id: 3, title: "Marketing Director", company: "Rainbow Hub", category: "sales", salary: "₹6 LPA", icon: "bi-megaphone" },
+    { id: 4, title: "Financial Analyst", company: "Malabar Trading", category: "finance", salary: "₹5 LPA", icon: "bi-calculator" },
+    { id: 5, title: "Cloud Architect", company: "Global Cloud", category: "it", salary: "₹12 LPA", icon: "bi-cloud" },
+    { id: 6, title: "Sales Executive", company: "Creative Media", category: "sales", salary: "₹35k/m", icon: "bi-graph-up" }
 ];
 
-// 2. Function to Render Jobs to the HTML
 const jobContainer = document.getElementById('job-container');
 
-function renderJobs(jobsToRender) {
-    // Clear current jobs
+// 2. Render Function
+function renderJobs(jobs) {
     jobContainer.innerHTML = '';
-
-    // If no jobs match, show a message
-    if (jobsToRender.length === 0) {
-        jobContainer.innerHTML = `
-            <div class="col-12 text-center py-5">
-                <h5 class="text-muted">No jobs found in this category.</h5>
-            </div>
-        `;
+    
+    if (jobs.length === 0) {
+        jobContainer.innerHTML = `<div class="col-12 text-center py-5 text-white opacity-50">No opportunities currently available in this sector.</div>`;
         return;
     }
 
-    // Loop through jobs and create HTML structure
-    jobsToRender.forEach((job, index) => {
-        // Add a slight animation delay for each card
+    jobs.forEach((job, index) => {
         const delay = index * 0.1;
         
-        const jobHTML = `
-            <div class="col-md-6 col-lg-4 fade-in" style="animation-delay: ${delay}s">
-                <div class="card job-card">
-                    <div class="card-body p-4">
-                        <div class="card-icon-wrap">
-                            <i class="bi ${job.icon}"></i>
-                        </div>
-                        <h5 class="fw-bold mb-1">${job.title}</h5>
-                        <p class="text-pink fw-semibold mb-3">${job.company}</p>
+        const html = `
+            <div class="col-12 col-md-6 col-lg-4 reveal" style="animation-delay: ${delay}s">
+                <div class="job-card shadow-lg">
+                    <div class="job-card-body">
                         
-                        <div class="small text-muted mb-4">
-                            <span class="d-block mb-2"><i class="bi bi-geo-alt-fill text-danger me-2"></i>${job.location}</span>
-                            <span class="d-block"><i class="bi bi-cash text-success me-2"></i>${job.salary}</span>
+                        <div class="d-flex justify-content-between align-items-start mb-4">
+                            <div class="job-icon-badge">
+                                <i class="bi ${job.icon}"></i>
+                            </div>
+                            <span class="small opacity-75 text-uppercase gold-text fw-bold" style="letter-spacing: 1px;">${job.category}</span>
                         </div>
-                    </div>
-                    <div class="card-footer bg-transparent border-top-0 px-4 pb-4">
-                        <a href="#" class="btn btn-outline-dark w-100 rounded-pill">Apply Now</a>
+                        
+                        <h5 class="fw-bold text-white mb-1">${job.title}</h5>
+                        <p class="small text-white opacity-50 mb-4"><i class="bi bi-buildings me-2"></i>${job.company}</p>
+                        
+                        <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top border-secondary border-opacity-25">
+                            <span class="fw-bold gold-text fs-5">${job.salary}</span>
+                            <a href="#" class="apply-btn-luxury">View Details <i class="bi bi-arrow-right ms-1"></i></a>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
         `;
-        // Inject into the container
-        jobContainer.insertAdjacentHTML('beforeend', jobHTML);
+        jobContainer.insertAdjacentHTML('beforeend', html);
     });
 }
 
-// 3. Initialize the page with all jobs
-renderJobs(jobData);
-
-// 4. Filtering Logic
-const filterButtons = document.querySelectorAll('.filter-btn');
-
-filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Remove 'active' class from all buttons
-        filterButtons.forEach(btn => btn.classList.remove('active'));
+// 3. Filter Logic
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
         
-        // Add 'active' class to the clicked button
-        button.classList.add('active');
-
-        // Get the filter category
-        const filterValue = button.getAttribute('data-filter');
-
-        // Filter the array
-        if (filterValue === 'all') {
-            renderJobs(jobData);
-        } else {
-            const filteredJobs = jobData.filter(job => job.category === filterValue);
-            renderJobs(filteredJobs);
-        }
+        const filter = this.dataset.filter;
+        renderJobs(filter === 'all' ? jobData : jobData.filter(j => j.category === filter));
     });
+});
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    renderJobs(jobData);
 });

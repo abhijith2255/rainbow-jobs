@@ -4,113 +4,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rainbow Jobs | Premium Career Consultancy</title>
+    <title>Rainbow Jobs | Executive Career Suite</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg fixed-top fancy-navbar">
+    <nav class="navbar navbar-expand-lg fixed-top nav-glass">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">Rainbow<span class="text-pink">Jobs</span></a>
-            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <i class="bi bi-list fs-2 text-dark"></i>
+            <a class="navbar-brand logo" href="#">RAINBOW<span class="gold-text">JOBS</span></a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="bi bi-list fs-1 text-white"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center gap-3">
-                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Browse Jobs</a></li>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#">The Collection</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Employers</a></li>
-                    <li class="nav-item ms-lg-3">
-                        <a class="btn btn-fancy-pink shadow-sm" href="#">Student Login</a>
+                    <li class="nav-item ms-lg-4">
+                        <a class="btn btn-gold" href="#">Executive Access</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="hero-section">
-        <div class="container">
-            <div class="row align-items-center justify-content-between g-5">
-                
-                <div class="col-lg-7 text-center text-lg-start z-index-2">
-                    <span class="fancy-badge mb-3 d-inline-block border-white text-white">Empowering Your Career</span>
-                    <h1 class="hero-title text-white">Find the job you truly <span class="text-pink">love.</span></h1>
-                    <p class="lead mb-5 text-white opacity-75">
-                        Connect with top employers. We make finding your dream job a beautiful and seamless experience.
+    <header class="hero-parallax">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content text-center text-lg-start">
+            <div class="row align-items-center">
+                <div class="col-lg-7 reveal">
+                    <span class="top-label">ESTABLISHED 2026</span>
+                    <h1 class="display-1 main-title">Your Future, <br><span class="italic-gold">Refined.</span></h1>
+                    <p class="hero-description my-4">
+                        We don't just find jobs; we curate careers. Experience the most exclusive professional network in Kerala.
                     </p>
                     
-                    <form class="search-glass d-flex mb-4 shadow-lg">
-                        <i class="bi bi-search text-pink ms-3 me-2 align-self-center fs-5"></i>
-                        <input class="form-control border-0 shadow-none bg-transparent text-dark" type="search" placeholder="Job title, skill, or company...">
-                        <button class="btn btn-fancy-pink px-4 m-1" type="submit">Search</button>
-                    </form>
-                </div>
-
-                <div class="col-lg-4 position-relative z-index-2">
-                    <div class="ceo-card-compact shadow-lg">
-                        <div class="d-flex align-items-center mb-3">
-                            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=150&h=150&q=80" alt="Vibi T" class="rounded-circle ceo-img-compact me-3">
-                            <div>
-                                <h5 class="fw-bold mb-0 text-dark">Vibi T</h5>
-                                <span class="text-pink fw-bold text-uppercase" style="letter-spacing: 1px; font-size: 0.7rem;">CEO & Founder</span>
-                            </div>
-                        </div>
-                        <p class="mb-0 text-muted small fst-italic" style="line-height: 1.6;">
-                            "We believe finding a job should be inspiring, not exhausting. Rainbow Jobs is designed to bring out the best in your career journey."
-                        </p>
+                    <div class="luxury-search-box mt-5 mx-auto mx-lg-0">
+                        <form class="d-flex align-items-center">
+                            <i class="bi bi-search ms-3 me-2 text-white"></i>
+                            <input type="text" class="form-control border-0 bg-transparent text-white shadow-none" placeholder="Search by industry or role...">
+                            <button type="submit" class="btn btn-gold-search rounded-end">Explore</button>
+                        </form>
                     </div>
                 </div>
 
+                <div class="col-lg-5 reveal-right mt-5 mt-lg-0">
+                    <div class="ceo-float-card mx-auto mx-lg-0">
+                        <div class="card-inner d-flex align-items-center justify-content-center justify-content-lg-start">
+                            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=150&h=150&q=80" alt="Vibi T" class="ceo-avatar">
+                            <div class="ms-3 text-start">
+                                <h4 class="mb-0">Vibi T.</h4>
+                                <p class="gold-text small mb-0 fw-bold">CHIEF EXECUTIVE</p>
+                            </div>
+                        </div>
+                        <p class="quote-text mt-3 text-center text-lg-start">"True success is the intersection of preparation and opportunity."</p>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="container py-5 mt-5">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold text-dark">Discover Opportunities</h2>
-            <p class="text-muted">Explore our latest openings categorized just for you.</p>
+    <section class="container py-5 mt-5">
+        <div class="row mb-5 reveal">
+            <div class="col-lg-6 text-center text-lg-start">
+                <h2 class="section-heading">Active <span class="gold-text">Opportunities</span></h2>
+            </div>
+            <div class="col-lg-6 text-center text-lg-end mt-4 mt-lg-0">
+                <div class="filter-group d-flex gap-2 justify-content-center justify-content-lg-end overflow-auto pb-2">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="it">Technology</button>
+                    <button class="filter-btn" data-filter="admin">Admin</button>
+                    <button class="filter-btn" data-filter="sales">Marketing</button>
+                </div>
+            </div>
         </div>
 
-        <div class="d-flex justify-content-center flex-wrap gap-2 mb-5" id="filter-buttons">
-            <button class="btn filter-btn active" data-filter="all">All Jobs</button>
-            <button class="btn filter-btn" data-filter="it">IT & Tech</button>
-            <button class="btn filter-btn" data-filter="admin">Administration</button>
-            <button class="btn filter-btn" data-filter="sales">Sales & Marketing</button>
-            <button class="btn filter-btn" data-filter="finance">Finance</button>
-        </div>
-        
         <div class="row g-4" id="job-container">
             </div>
-    </main>
+    </section>
 
-    <footer class="footer-section mt-5">
+    <footer class="luxury-footer mt-5 py-5">
         <div class="container">
-            <div class="row g-5">
-                <div class="col-md-5">
-                    <h4 class="fw-bold mb-3">Rainbow<span class="text-pink">Jobs</span></h4>
-                    <p class="text-muted small mb-4 pe-md-5">The premium career consultancy bridging the gap between exceptional student talent and world-class companies with elegance and efficiency.</p>
-                </div>
-
+            <div class="row g-5 text-center text-md-start">
                 <div class="col-md-4">
-                    <h6 class="footer-heading text-dark">Office Location</h6>
-                    <p class="small text-muted mb-2"><i class="bi bi-geo-alt-fill me-2 text-pink"></i>Rainbow Jobs Consultancy</p>
-                    <p class="small text-muted mb-2 ms-4">2nd Floor, City Center Mall</p>
-                    <p class="small text-muted mb-3 ms-4">Kozhikode, Kerala - 673001</p>
+                    <h3 class="logo mb-4">RAINBOW<span class="gold-text">JOBS</span></h3>
+                    <p class="opacity-50">Providing elite career consultancy for the next generation of leadership in Kerala.</p>
                 </div>
-
-                <div class="col-md-3">
-                    <h6 class="footer-heading text-dark">Contact</h6>
-                    <p class="small text-muted mb-2"><i class="bi bi-telephone-fill me-2 text-pink"></i>+91 98765 43210</p>
-                    <p class="small text-muted mb-0"><i class="bi bi-envelope-fill me-2 text-pink"></i>support@rainbowjobs.in</p>
+                <div class="col-md-4 offset-md-4 text-md-end">
+                    <p class="gold-text fw-bold mb-1">HEADQUARTERS</p>
+                    <p class="opacity-75">City Center Mall, 2nd Floor<br>Kozhikode, Kerala 673001</p>
                 </div>
             </div>
-            
-            <hr class="my-4 border-pink opacity-25">
-            <div class="text-center">
-                <p class="small text-muted mb-0">&copy; 2026 Rainbow Jobs. All rights reserved.</p>
+            <div class="border-top border-secondary mt-5 pt-4 d-flex flex-column flex-md-row align-items-center justify-content-between small opacity-50">
+                <p class="mb-3 mb-md-0">&copy; 2026 RAINBOW JOBS. ALL RIGHTS RESERVED.</p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-white text-decoration-none">PRIVACY</a>
+                    <a href="#" class="text-white text-decoration-none">TERMS</a>
+                </div>
             </div>
         </div>
     </footer>
