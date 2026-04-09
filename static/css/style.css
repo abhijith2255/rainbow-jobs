@@ -56,11 +56,15 @@ body {
 }
 
 /* --- NEW: Hero Section with Beautiful Image --- */
+/* --- NEW: Hero Section with Beautiful Image --- */
 .hero-section {
     padding: 160px 0 100px 0;
-    /* This creates a beautiful dark overlay with a pink tint over the office image */
-    background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(232, 62, 140, 0.5)), 
-                url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    /* We split the background into separate, safe commands */
+    background-image: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(232, 62, 140, 0.5)), 
+                      url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     position: relative;
 }
 .hero-title {
