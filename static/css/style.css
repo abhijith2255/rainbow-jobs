@@ -152,31 +152,30 @@ body.dark-theme {
    MOBILE RESPONSIVENESS
    ========================================= */
 /* =========================================
-   MOBILE MENU OVERLAP FIX
+   MOBILE RESPONSIVENESS & MENU FIX
    ========================================= */
 @media (max-width: 991px) {
-    .navbar-collapse {
-        /* Gives the open menu a solid dark background so text doesn't overlap */
-        background-color: var(--navy-dark, #0a101d); 
-        padding: 20px;
-        border-radius: 12px;
-        margin-top: 15px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    /* Navbar & Menu Fixes */
+    .navbar-collapse { background-color: rgba(11, 17, 32, 0.98); padding: 20px; border-radius: 12px; margin-top: 15px; border: 1px solid var(--border-color); text-align: center; backdrop-filter: blur(15px); }
+    .navbar-nav .nav-item { margin-bottom: 15px; width: 100%; }
+    .luxury-dropdown { background-color: transparent !important; border: none !important; box-shadow: none !important; margin-top: 0 !important; padding: 0 !important; }
+    .luxury-dropdown .dropdown-item { justify-content: center; font-size: 1rem; padding: 10px; }
+    .luxury-dropdown .dropdown-item:hover { padding-left: 10px; background-color: transparent !important; color: var(--gold) !important; }
+    .luxury-dropdown .dropdown-divider { border-top: 1px solid rgba(255, 255, 255, 0.1) !important; width: 50%; margin: 10px auto !important; }
+
+    /* HERO SECTION MOBILE FIX (Fixes the overlap and massive height) */
+    .hero-section .min-vh-100 {
+        min-height: auto !important; /* Stops the section from stretching too big */
+        padding-top: 140px !important; /* Safely pushes the text down below the navbar */
+        padding-bottom: 60px !important;
     }
+}
+
+@media (max-width: 768px) {
+    /* Shrink the giant title slightly for small phone screens */
+    .hero-title { font-size: 3rem; }
+    .hero-section { background-position: center; }
     
-    .navbar-collapse .nav-item {
-        text-align: center; /* Centers the links on mobile */
-        margin-bottom: 15px;
-    }
-    
-    .navbar-collapse .nav-link {
-        font-size: 1rem; /* Makes links slightly larger for finger-tapping */
-    }
-    
-    .navbar-collapse .btn-gold {
-        display: block;
-        width: 100%; /* Makes the executive button span full width */
-        margin-top: 10px;
-    }
+    /* Adds spacing above the CEO card so it doesn't touch the search bar */
+    .ceo-glass-card { padding: 20px; margin-top: 3rem; max-width: 100%; }
 }
