@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ldj7(mpq+^(5_6n(slkl9kp@mbr&v8m5wny@$nd8hggywrr^y&
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # CHANGED: Must be False for live internet hosting!
-DEBUG = False
+DEBUG = True
 
 # CHANGED: Allows PythonAnywhere (or any domain) to host your site
 ALLOWED_HOSTS = ['*']

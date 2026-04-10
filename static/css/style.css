@@ -1,92 +1,182 @@
-/* Color Palette */
+/* =========================================
+   VARIABLES & BASE
+   ========================================= */
 :root {
-    --emerald-deep: #064e3b;
-    --emerald-midnight: #022c22;
     --gold: #fbbf24;
-    --gold-hover: #f59e0b;
-    --slate: #0f172a;
-    --white: #f8fafc;
+    --navy-dark: #0a101d; /* Matches the bottom of the hero fade */
+    --card-bg: #111827; /* Solid dark slate for job cards */
+    --glass-bg: rgba(255, 255, 255, 0.02);
+    --glass-border: rgba(255, 255, 255, 0.08);
 }
 
-body {
-    background-color: var(--slate);
-    color: var(--white);
-    font-family: 'Outfit', sans-serif;
+body.dark-theme {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--navy-dark);
+    color: #ffffff;
     overflow-x: hidden;
 }
 
-/* Typography */
-.main-title { font-family: 'Playfair Display', serif; font-weight: 900; }
-.italic-gold { font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold); }
-.gold-text { color: var(--gold); }
+.text-gold { color: var(--gold) !important; }
+.logo { font-weight: 800; letter-spacing: 2px; text-decoration: none; }
+.section-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 2.5rem; }
 
-/* Luxury Navbar */
-.nav-glass {
-    padding: 20px 0; transition: all 0.4s ease;
-    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), transparent);
-}
-.logo { font-weight: 800; letter-spacing: 2px; color: white !important; text-decoration: none; }
-.nav-link { color: white !important; text-transform: uppercase; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; opacity: 0.7; }
-.nav-link:hover { opacity: 1; color: var(--gold) !important; }
-
+/* Buttons */
 .btn-gold {
-    background: var(--gold); color: var(--emerald-midnight) !important; font-weight: 800; border-radius: 0;
-    padding: 10px 25px; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; transition: 0.3s;
+    background-color: var(--gold); color: #000 !important; font-weight: 700; border-radius: 4px;
+    padding: 10px 24px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; transition: 0.3s;
 }
-.btn-gold:hover { transform: scale(1.05); background: white; }
-
-/* Hero Parallax */
-.hero-parallax {
-    height: 90vh; display: flex; align-items: center; position: relative;
-    background: url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1920&q=80');
-    background-size: cover; background-attachment: fixed; background-position: center;
-}
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(6, 78, 59, 0.95) 0%, rgba(15, 23, 42, 0.8) 100%); }
-.hero-content { position: relative; z-index: 2; }
-.top-label { letter-spacing: 5px; font-size: 0.7rem; opacity: 0.6; display: block; margin-bottom: 1rem; }
-
-/* Search Box */
-.luxury-search-box { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 8px; max-width: 600px; border-radius: 4px; }
-.btn-gold-search { background: var(--gold); color: black; font-weight: 700; padding: 12px 30px; border: none; transition: 0.3s ease; }
-.btn-gold-search:hover { background: white; }
-.luxury-search-box input:focus { color: white; }
-
-/* CEO Floating Card */
-.ceo-float-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border: 1px solid rgba(251, 191, 36, 0.2); padding: 30px; border-radius: 4px; position: relative; }
-.ceo-avatar { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
-.quote-text { font-style: italic; opacity: 0.7; font-size: 0.9rem; }
-
-/* --- CLEAN JOB CARDS (NO IMAGES) --- */
-.job-card {
-    background: rgba(2, 44, 34, 0.6); backdrop-filter: blur(10px);
-    border: 1px solid rgba(251, 191, 36, 0.15); border-radius: 16px;
-    height: 100%; transition: 0.4s ease; display: flex; flex-direction: column;
-    border-top: 4px solid var(--gold);
-}
-.job-card:hover { background: rgba(2, 44, 34, 0.95); border-color: var(--gold); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-.job-icon-badge {
-    width: 50px; height: 50px; background: rgba(251, 191, 36, 0.1); border: 1px solid var(--gold);
-    border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.3rem;
-}
-.job-card-body { padding: 30px 25px; flex-grow: 1; display: flex; flex-direction: column; }
-.apply-btn-luxury { border: 1px solid rgba(255,255,255,0.2); color: white; padding: 6px 18px; border-radius: 50px; font-size: 0.85rem; transition: 0.3s; text-decoration: none; }
-.apply-btn-luxury:hover { background: var(--gold); color: black; border-color: var(--gold); }
-
-/* Filters */
-.filter-btn { background: transparent; border: none; color: white; opacity: 0.5; font-weight: 600; padding: 5px 20px; transition: 0.3s; }
-.filter-btn.active { opacity: 1; color: var(--gold); border-bottom: 2px solid var(--gold); }
-
-/* ANIMATIONS */
-.reveal { animation: revealIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-@keyframes revealIn { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+.btn-gold:hover { background-color: #fff; transform: translateY(-2px); }
 
 /* =========================================
-   MOBILE TWEAKS (CEO VISIBILITY FIX)
+   NAVBAR (Transparent to Solid on scroll)
    ========================================= */
-@media (max-width: 768px) {
-    .main-title { font-size: 3rem; }
-    /* The FIX: height: auto allows the CEO card to fit! */
-    .hero-parallax { height: auto; min-height: 100vh; padding-top: 120px; padding-bottom: 60px; }
-    .job-card-body { padding: 25px 20px; }
-    .ceo-float-card { max-width: 350px; margin-left: auto; margin-right: auto; }
+.nav-transparent { padding: 20px 0; transition: all 0.4s ease; background-color: transparent; }
+.nav-scrolled {
+    padding: 12px 0; background-color: rgba(10, 16, 29, 0.95);
+    backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.nav-link { text-transform: uppercase; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; opacity: 0.8; transition: 0.3s; }
+.nav-link:hover { opacity: 1; color: var(--gold) !important; }
+
+/* =========================================
+   HERO SECTION (SMOOTH FADE)
+   ========================================= */
+.hero-section {
+    position: relative; 
+    margin-top: -80px; padding-top: 80px;
+    background: url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1920&q=80') center top/cover no-repeat;
+}
+.hero-overlay {
+    position: absolute; inset: 0;
+    /* The Magic Fade into dark navy */
+    background: linear-gradient(to bottom, rgba(6, 78, 59, 0.85) 0%, rgba(10, 16, 29, 0.6) 60%, #0a101d 100%);
+    z-index: 1;
+}
+.hero-title { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 800; line-height: 1.1; letter-spacing: -1px; }
+.hero-title-italic { font-style: italic; }
+.top-label { letter-spacing: 4px; font-size: 0.75rem; font-weight: 600; }
+
+/* Search Box & CEO Card */
+.search-glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); border-radius: 8px; max-width: 550px; }
+.search-glass input::placeholder { color: rgba(255,255,255,0.4); }
+.search-glass input:focus { color: white; }
+.btn-gold-search { background: var(--gold); color: black; font-weight: 700; border-radius: 6px; border: none; transition: 0.3s; }
+.btn-gold-search:hover { background: white; }
+
+.ceo-glass-card { background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02)); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 30px; max-width: 420px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.ceo-avatar { width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+
+/* =========================================
+   TEXT ANIMATIONS
+   ========================================= */
+.animate-fade-up { animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+.reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* =========================================
+   JOB SECTION & GRID (NEW SOLID DESIGN)
+   ========================================= */
+.filter-btn { background: transparent; color: rgba(255,255,255,0.6); border: none; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 16px; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+.filter-btn:hover { color: white; }
+.filter-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* The Solid Dark Card */
+.job-card {
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+    border-top: 4px solid var(--gold);
+    border-radius: 16px; 
+    height: 100%; padding: 25px;
+    display: flex; flex-direction: column; transition: all 0.3s ease;
+}
+.job-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5); 
+    border-color: rgba(251, 191, 36, 0.2);
+    border-top: 4px solid var(--gold);
+}
+
+/* Square Gold Icon Box */
+.job-icon-box { 
+    width: 45px; height: 45px; border-radius: 8px;
+    border: 1px solid rgba(251, 191, 36, 0.4); 
+    background: rgba(251, 191, 36, 0.05);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-size: 1.2rem; 
+}
+
+/* Pill Category Tag */
+.job-category-tag {
+    border: 1px solid rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.05);
+    color: var(--gold); padding: 4px 12px; border-radius: 50px;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; display: flex; align-items: center;
+}
+
+/* Card Typography */
+.job-title { font-weight: 700; font-size: 1.15rem; }
+.job-details p { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+
+/* Footer area inside card */
+.job-card-footer {
+    margin-top: auto; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.job-salary { font-weight: 800; font-size: 1.2rem; }
+
+/* View Details Button */
+.btn-view-details { 
+    background: transparent; border: 1px solid rgba(255,255,255,0.3); 
+    color: white; padding: 6px 18px; border-radius: 50px; 
+    font-size: 0.8rem; text-decoration: none; transition: 0.3s; 
+}
+.btn-view-details:hover { background: var(--gold); color: black; border-color: var(--gold); }
+
+/* =========================================
+   REVIEWS & FOOTER
+   ========================================= */
+.review-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px; height: 100%; transition: 0.3s; }
+.review-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.05); }
+.review-avatar { width: 45px; height: 45px; border-radius: 50%; background: #1e293b; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--gold); border: 1px solid var(--glass-border); }
+
+.footer-area { background-color: #050810; }
+.social-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: 0.3s; }
+.social-btn:hover { background: var(--gold); color: black; }
+.footer-links li { margin-bottom: 12px; }
+.footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+.footer-links a:hover { color: var(--gold); padding-left: 5px; }
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+   ========================================= */
+/* =========================================
+   MOBILE MENU OVERLAP FIX
+   ========================================= */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        /* Gives the open menu a solid dark background so text doesn't overlap */
+        background-color: var(--navy-dark, #0a101d); 
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    }
+    
+    .navbar-collapse .nav-item {
+        text-align: center; /* Centers the links on mobile */
+        margin-bottom: 15px;
+    }
+    
+    .navbar-collapse .nav-link {
+        font-size: 1rem; /* Makes links slightly larger for finger-tapping */
+    }
+    
+    .navbar-collapse .btn-gold {
+        display: block;
+        width: 100%; /* Makes the executive button span full width */
+        margin-top: 10px;
+    }
 }
