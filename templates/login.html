@@ -1,201 +1,258 @@
-<!DOCTYPE html>
+{% load static %}
+{% load socialaccount %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Portal | Rainbow Jobs</title>
+    <title>Rainbow Jobs | Executive Portal Access</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,700&display=swap" rel="stylesheet">
     
-    <style>
-        :root {
-            --primary-color: #6366f1; 
-            --primary-hover: #818cf8;
-            --bg-dark: #0f172a; 
-            --card-dark: #1e293b; 
-            --text-light: #f8fafc;
-            --text-muted: #fdfdfd;
-            --border-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        body {
-            font-family: "Segoe UI Variable Display", "Segoe UI", -apple-system, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent),
-                        radial-gradient(circle at bottom left, rgba(99, 102, 241, 0.1), transparent),
-                        var(--bg-dark);
-        }
-
-        .auth-card {
-            background: var(--card-dark);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            width: 100%;
-            max-width: 450px;
-            padding: 3rem 2.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .brand-logo {
-            font-weight: 800;
-            font-size: 1.75rem;
-            letter-spacing: -1px;
-            text-decoration: none;
-            color: white !important;
-            display: block;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .form-label {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-control {
-            background-color: rgba(15, 23, 42, 0.5);
-            border: 1px solid var(--border-color);
-            color: white !important;
-            padding: 0.75rem 1rem;
-            border-radius: 12px;
-        }
-
-        .form-control:focus {
-            background-color: rgba(15, 23, 42, 0.8);
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border: none;
-            padding: 0.8rem;
-            border-radius: 12px;
-            font-weight: 600;
-            width: 100%;
-            margin-top: 1rem;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-1px);
-        }
-
-        .toggle-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .toggle-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Animation for switching forms */
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=24.0">
+    <link rel="stylesheet" href="{% static 'css/loginstyle.css' %}?v=4.0">
 </head>
-<body>
+<body class="dark-theme auth-page">
 
-    <div class="auth-card">
-        <a href="#" class="brand-logo">Rainbow<span style="color: var(--primary-color);">Jobs</span></a>
+    <a href="{% url 'home' %}" class="back-home-btn"><i class="bi bi-arrow-left me-2"></i> Back to Collection</a>
 
-        <div id="signInForm" class="auth-form active">
-            <h4 class="fw-bold mb-1">Welcome back</h4>
-            <p class=" small mb-4">Please enter your details to sign in.</p>
-
-            <form>
-                <div class="mb-3">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" class="form-control" placeholder="name@student.com" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-control" placeholder="••••••••" required>
-                </div>
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div class="form-check small">
-                        <input class="form-check-input" type="checkbox" id="remember">
-                        <label class="form-check-label " for="remember">Remember me</label>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        
+        <div class="auth-card-container">
+            <div class="auth-slider" id="authSlider">
+                
+                <div class="auth-panel login-panel">
+                    <div class="text-center mb-4">
+                        <h2 class="logo text-white fs-3 mb-1">RAINBOW<span class="text-gold">JOBS</span></h2>
+                        <p class="text-white opacity-50 small">Executive Portal Access</p>
                     </div>
-                    <a href="#" class="small toggle-link">Forgot password?</a>
-                </div>
-                <button type="submit" class="btn btn-primary">Sign In</button>
-            </form>
 
-            <p class="text-center mt-4 small ">
-                Don't have an account? <span class="toggle-link" onclick="toggleForm('signUp')">Sign up for free</span>
-            </p>
-        </div>
+                    <form method="POST" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-danger py-2 small border-0" style="background: rgba(220, 53, 69, 0.1); color: #ff6b6b;">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
 
-        <div id="signUpForm" class="auth-form">
-            <h4 class="fw-bold mb-1">Create an account</h4>
-            <p class=" small mb-4">Join Rainbow Jobs to start your career.</p>
+                        <div class="custom-input-group mb-3">
+                            <i class="bi bi-person custom-input-icon"></i>
+                            <input type="text" name="username" class="custom-input" placeholder="Username" required>
+                        </div>
+                        
+                        <div class="custom-input-group mb-4">
+                            <i class="bi bi-lock custom-input-icon"></i>
+                            <input type="password" name="password" class="custom-input" placeholder="Password" required>
+                        </div>
 
-            <form>
-                <div class="mb-3">
-                    <label class="form-label">Full Name</label>
-                    <input type="text" class="form-control" placeholder="John Doe" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" class="form-control" placeholder="name@student.com" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-control" placeholder="Create a password" required>
-                </div>
-                <div class="form-check small mb-4">
-                    <input class="form-check-input" type="checkbox" id="terms" required>
-                    <label class="form-check-label" for="terms">
-                        I agree to the <a href="#" class="toggle-link">Terms & Conditions</a>
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-primary">Create Account</button>
-            </form>
+                        <div class="d-flex justify-content-between align-items-center mb-4 small">
+                            <label class="text-white opacity-75 d-flex align-items-center gap-2">
+                                <input type="checkbox" class="custom-checkbox"> Remember me
+                            </label>
+                            <a href="#" class="text-gold text-decoration-none">Forgot Password?</a>
+                        </div>
 
-            <p class="text-center mt-4 small ">
-                Already have an account? <span class="toggle-link" onclick="toggleForm('signIn')">Sign in here</span>
-            </p>
+                        <button type="submit" class="btn btn-gold w-100 mb-3 py-2">Sign In</button>
+                    </form>
+
+                    <div class="d-flex align-items-center mb-3">
+                        <hr class="flex-grow-1 border-secondary opacity-25 m-0">
+                        <span class="mx-3 text-white opacity-50 small" style="font-size: 0.7rem; letter-spacing: 1px;">OR CONTINUE WITH</span>
+                        <hr class="flex-grow-1 border-secondary opacity-25 m-0">
+                    </div>
+
+                    <div class="d-flex gap-3 mb-4">
+                        <form action="{% provider_login_url 'google' %}" method="post" class="flex-grow-1 d-flex">
+                            {% csrf_token %}
+                            <button type="submit" class="btn social-auth-btn w-100 d-flex align-items-center justify-content-center gap-2">
+                                <i class="bi bi-google text-danger fs-5"></i> <span class="small fw-bold">Google</span>
+                            </button>
+                        </form>
+                        
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#otpModal" class="btn social-auth-btn flex-grow-1 d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-phone text-info fs-5"></i> <span class="small fw-bold">Phone</span>
+                        </button>
+                    </div>
+
+                    <p class="text-center text-white opacity-50 small mb-0">
+                        Don't have an account? 
+                        <a href="#" class="text-gold fw-bold text-decoration-none toggle-btn" id="showRegister">Apply for Access</a>
+                    </p>
+                </div>
+
+                <div class="auth-panel register-panel">
+                    <div class="text-center mb-4">
+                        <h2 class="logo text-white fs-3 mb-1">RAINBOW<span class="text-gold">JOBS</span></h2>
+                        <p class="text-white opacity-50 small">Join the Executive Network</p>
+                    </div>
+
+                    <form method="POST" action="{% url 'register' %}">
+                        {% csrf_token %}
+                        <div class="custom-input-group mb-3">
+                            <i class="bi bi-person custom-input-icon"></i>
+                            <input type="text" name="username" class="custom-input" placeholder="Choose a Username" required>
+                        </div>
+
+                        <div class="custom-input-group mb-3">
+                            <i class="bi bi-envelope custom-input-icon"></i>
+                            <input type="email" name="email" class="custom-input" placeholder="Professional Email" required>
+                        </div>
+                        
+                        <div class="custom-input-group mb-4">
+                            <i class="bi bi-lock custom-input-icon"></i>
+                            <input type="password" name="password" class="custom-input" placeholder="Create Password" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-gold w-100 mb-3 py-2">Submit Application</button>
+                    </form>
+
+                    <div class="d-flex align-items-center mb-3">
+                        <hr class="flex-grow-1 border-secondary opacity-25 m-0">
+                        <span class="mx-3 text-white opacity-50 small" style="font-size: 0.7rem; letter-spacing: 1px;">OR REGISTER WITH</span>
+                        <hr class="flex-grow-1 border-secondary opacity-25 m-0">
+                    </div>
+
+                    <div class="d-flex gap-3 mb-4">
+                        <form action="{% provider_login_url 'google' %}" method="post" class="flex-grow-1 d-flex">
+                            {% csrf_token %}
+                            <button type="submit" class="btn social-auth-btn w-100 d-flex align-items-center justify-content-center gap-2">
+                                <i class="bi bi-google text-danger fs-5"></i> <span class="small fw-bold">Google</span>
+                            </button>
+                        </form>
+                        
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#otpModal" class="btn social-auth-btn flex-grow-1 d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-phone text-info fs-5"></i> <span class="small fw-bold">Phone</span>
+                        </button>
+                    </div>
+
+                    <p class="text-center text-white opacity-50 small mb-0">
+                        Already an executive member? 
+                        <a href="#" class="text-gold fw-bold text-decoration-none toggle-btn" id="showLogin">Sign In Here</a>
+                    </p>
+                </div>
+
+            </div>
         </div>
     </div>
 
-    <script>
-        function toggleForm(type) {
-            const signIn = document.getElementById('signInForm');
-            const signUp = document.getElementById('signUpForm');
+    <div class="modal fade" id="otpModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background-color: #1e293b; border: 1px solid rgba(255,255,255,0.1); border-top: 4px solid var(--gold);">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title text-white fw-bold"><i class="bi bi-phone me-2 text-gold"></i> Phone Verification</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-4">
+                    
+                    <div id="phoneInputStep">
+                        <p class="text-white opacity-75 small mb-3">Enter your mobile number to receive a secure access code.</p>
+                        <div class="custom-input-group mb-3">
+                            <i class="bi bi-telephone custom-input-icon"></i>
+                            <input type="tel" id="mobileNumber" class="custom-input" placeholder="9876543210">
+                        </div>
+                        <button id="sendOtpBtn" class="btn btn-gold w-100 py-2">Send OTP Code</button>
+                    </div>
 
-            if (type === 'signUp') {
-                signIn.classList.remove('active');
-                signUp.classList.add('active');
-            } else {
-                signUp.classList.remove('active');
-                signIn.classList.add('active');
-            }
-        }
-    </script>
+                    <div id="otpInputStep" class="d-none">
+                        <p class="text-white opacity-75 small mb-3">Enter the 6-digit code sent to your phone.</p>
+                        <div class="custom-input-group mb-3">
+                            <i class="bi bi-shield-lock custom-input-icon"></i>
+                            <input type="text" id="otpCode" class="custom-input" placeholder="000000" maxlength="6">
+                        </div>
+                        <button id="verifyOtpBtn" class="btn btn-gold w-100 py-2">Verify & Access Portal</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/login.js' %}?v=3.0"></script>
+    
+    <script>
+        // Grab the Django security token from the main login form
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        // --- STEP 1: SEND OTP ---
+        document.getElementById('sendOtpBtn').addEventListener('click', function() {
+            const phone = document.getElementById('mobileNumber').value;
+            const btn = this;
+
+            if(phone.length >= 10) {
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending...';
+                btn.disabled = true;
+
+                // Call the Django backend
+                fetch('{% url "send_otp" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: new URLSearchParams({'phone_number': phone})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.status === 'success') {
+                        // Switch UI to Step 2
+                        document.getElementById('phoneInputStep').classList.add('d-none');
+                        document.getElementById('otpInputStep').classList.remove('d-none');
+                    } else {
+                        alert(data.message);
+                        btn.innerHTML = 'Send OTP Code';
+                        btn.disabled = false;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
+                alert("Please enter a valid mobile number.");
+            }
+        });
+
+        // --- STEP 2: VERIFY OTP ---
+        document.getElementById('verifyOtpBtn').addEventListener('click', function() {
+            const phone = document.getElementById('mobileNumber').value;
+            const otp = document.getElementById('otpCode').value;
+            const btn = this;
+
+            if(otp.length === 6) {
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Verifying...';
+                btn.disabled = true;
+
+                // Send the OTP back to Django to check
+                fetch('{% url "verify_otp" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: new URLSearchParams({
+                        'phone_number': phone,
+                        'otp': otp
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.status === 'success') {
+                        // Success! Send them to the homepage
+                        window.location.href = data.redirect;
+                    } else {
+                        alert(data.message);
+                        btn.innerHTML = 'Verify & Access Portal';
+                        btn.disabled = false;
+                        document.getElementById('otpCode').value = ''; // clear input
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
+                alert("Please enter the 6-digit code.");
+            }
+        });
+    </script>
 </body>
 </html>

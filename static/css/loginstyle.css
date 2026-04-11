@@ -1,0 +1,78 @@
+/* =========================================
+   LOGIN & REGISTER STYLES
+   ========================================= */
+.auth-page {
+    background: radial-gradient(circle at top right, #111a2f 0%, var(--bg-main, #0b1120) 100%);
+}
+
+.back-home-btn {
+    position: absolute; top: 30px; left: 30px;
+    color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+    z-index: 10;
+}
+.back-home-btn:hover { color: var(--gold, #fbbf24); }
+
+/* Card Container */
+.auth-card-container {
+    width: 100%; max-width: 420px;
+    background-color: var(--card-bg, #1e293b);
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    border-top: 4px solid var(--gold, #fbbf24);
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    position: relative;
+    height: 520px; 
+}
+
+/* Sliding Animation Logic */
+.auth-slider {
+    display: flex; width: 200%; height: 100%;
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.slide-to-register { transform: translateX(-50%); }
+
+.auth-panel {
+    width: 50%; height: 100%; padding: 40px;
+    display: flex; flex-direction: column; justify-content: center;
+}
+
+/* Custom Premium Inputs */
+.custom-input-group { position: relative; }
+.custom-input-icon {
+    position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+    color: var(--gold, #fbbf24); opacity: 0.7; font-size: 1.1rem;
+}
+.custom-input {
+    width: 100%; background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+    padding: 12px 15px 12px 45px; color: white; font-size: 0.9rem; transition: 0.3s;
+}
+.custom-input:focus {
+    outline: none; border-color: var(--gold, #fbbf24); 
+    background: rgba(255, 255, 255, 0.06); 
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.15);
+}
+.custom-input::placeholder { color: rgba(255,255,255,0.3); }
+
+/* Mobile Adjustments */
+@media (max-width: 576px) {
+    .auth-card-container { height: 500px; border-radius: 0; border: none; background: transparent; box-shadow: none; }
+    .auth-panel { padding: 20px; }
+    .back-home-btn { top: 15px; left: 15px; }
+}
+/* Social Auth Buttons */
+.social-auth-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.social-auth-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    color: white;
+}

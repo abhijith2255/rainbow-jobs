@@ -3,6 +3,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # The empty string '' here makes the jobs app the main homepage
+    
+    # Connects to your main 'jobs' app
     path('', include('jobs.urls')), 
+    
+    # Required for django-allauth (Google Login)
+    path('accounts/', include('allauth.urls')), 
 ]

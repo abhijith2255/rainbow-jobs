@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rainbow Jobs | Professional Career Consultancy</title>
+    <title>Student Portal | Rainbow Jobs</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -15,215 +14,187 @@
             --bg-dark: #0f172a; 
             --card-dark: #1e293b; 
             --text-light: #f8fafc;
-            --text-muted: #94a3b8;
+            --text-muted: #fdfdfd;
             --border-color: rgba(255, 255, 255, 0.1);
-            /* Dark Glass with Low Transparency (More Opaque) */
-            --glass-bg: rgba(15, 23, 42, 0.85);
         }
         
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: "Segoe UI Variable Display", "Segoe UI", -apple-system, sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-light);
-            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent),
+                        radial-gradient(circle at bottom left, rgba(99, 102, 241, 0.1), transparent),
+                        var(--bg-dark);
         }
 
-        /* Navbar */
-        .navbar {
-            background-color: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1rem 0;
-            position: absolute;
-            width: 100%;
-            z-index: 1000;
-        }
-        .navbar-brand {
-            font-weight: 800;
-            color: var(--text-light) !important;
-            letter-spacing: -0.5px;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 1) 100%), 
-                        url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80') no-repeat center center;
-            background-size: cover;
-            padding: 160px 0 100px 0;
-            position: relative;
-        }
-        
-        /* Floating CEO Card - Low Transparency */
-        .premium-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 3rem 2.5rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Job Cards */
-        .job-card {
+        .auth-card {
             background: var(--card-dark);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .job-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(99, 102, 241, 0.4);
-        }
-        
-        /* Search Container */
-        .search-container {
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(12px);
-            padding: 8px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-        .search-container input {
-            color: var(--text-light);
-            background: transparent;
-            border: none;
-        }
-        .search-container input::placeholder {
-            color: var(--text-muted);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 450px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
-        /* Footer Visibility Fixes */
-        .footer-section {
-            background-color: #0b1120;
-            border-top: 1px solid var(--border-color);
-            padding: 60px 0 30px 0;
-        }
-        .footer-heading {
-            color: #ffffff; /* Brighter for visibility */
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1.5px;
-            margin-bottom: 1.5rem;
+        .brand-logo {
+            font-weight: 800;
+            font-size: 1.75rem;
+            letter-spacing: -1px;
+            text-decoration: none;
+            color: white !important;
             display: block;
+            margin-bottom: 2rem;
+            text-align: center;
         }
-        .footer-text {
-            color: #cbd5e1; /* Light gray for high readability on dark bg */
-            font-size: 0.9rem;
-            line-height: 1.6;
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
         }
-        .footer-icon {
+
+        .form-control {
+            background-color: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border-color);
+            color: white !important;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+        }
+
+        .form-control:focus {
+            background-color: rgba(15, 23, 42, 0.8);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .toggle-link {
             color: var(--primary-color);
-            margin-right: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .toggle-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Animation for switching forms */
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand fs-3" href="#">Rainbow<span style="color: var(--primary-color);">Jobs</span></a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center gap-3">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Browse Jobs</a></li>
-                    <li class="nav-item ms-lg-3"><a class="btn btn-primary shadow-sm" href="#">Student Portal</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div class="auth-card">
+        <a href="#" class="brand-logo">Rainbow<span style="color: var(--primary-color);">Jobs</span></a>
 
-    <header class="hero-section">
-        <div class="container">
-            <div class="row align-items-center justify-content-between g-5">
-                
-                <div class="col-lg-6 text-center text-lg-start">
-                    <h1 class="display-4 fw-bold mb-4" style="color: var(--text-light); letter-spacing: -1px; line-height: 1.1;">
-                        Find the career path that defines your future.
-                    </h1>
-                    <p class="lead mb-5" style="color: #cbd5e1;">
-                        Connecting dedicated student talent with industry leaders in Kerala and beyond.
-                    </p>
-                    <form class="search-container d-flex mb-4">
-                        <i class="bi bi-search text-muted ms-3 me-2 align-self-center"></i>
-                        <input class="form-control shadow-none" type="search" placeholder="Search by job title or company...">
-                        <button class="btn btn-primary px-4" type="submit">Search</button>
-                    </form>
+        <div id="signInForm" class="auth-form active">
+            <h4 class="fw-bold mb-1">Welcome back</h4>
+            <p class=" small mb-4">Please enter your details to sign in.</p>
+
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" placeholder="name@student.com" required>
                 </div>
-
-                <div class="col-lg-5">
-                    <div class="premium-card text-center">
-                        <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=400&h=400&q=80" alt="Vibi T" class="rounded-circle mb-4" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--primary-color);">
-                        <h3 class="fw-bold mb-1" style="color: var(--text-light);">Vibi T</h3>
-                        <h6 class="mb-4 text-primary fw-bold text-uppercase" style="letter-spacing: 1px;">CEO & Founder</h6>
-                        <p class="mb-0 opacity-75" style="line-height: 1.6;">
-                            "At Rainbow Jobs, we bridge the gap between academic life and professional success. Our mission is to match fresh talent with meaningful opportunities."
-                        </p>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" placeholder="••••••••" required>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="form-check small">
+                        <input class="form-check-input" type="checkbox" id="remember">
+                        <label class="form-check-label " for="remember">Remember me</label>
                     </div>
+                    <a href="#" class="small toggle-link">Forgot password?</a>
                 </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
 
-            </div>
+            <p class="text-center mt-4 small ">
+                Don't have an account? <span class="toggle-link" onclick="toggleForm('signUp')">Sign up for free</span>
+            </p>
         </div>
-    </header>
 
-    <main class="container py-5 mt-4">
-        <h3 class="fw-bold mb-5 border-bottom pb-3 border-secondary border-opacity-25">Recent Job Openings</h3>
-        <div class="row g-4">
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 job-card">
-                    <div class="card-body p-4 text-white">
-                        <h5 class="fw-bold mb-1">Office Administrator</h5>
-                        <p class="text-primary fw-semibold">City Plaza Group</p>
-                        <p class="small opacity-75"><i class="bi bi-geo-alt-fill text-danger me-2"></i>Kozhikode, Kerala</p>
-                        <p class="card-text small mt-3 opacity-60">Manage daily administrative operations and document handling for a busy corporate environment.</p>
-                    </div>
+        <div id="signUpForm" class="auth-form">
+            <h4 class="fw-bold mb-1">Create an account</h4>
+            <p class=" small mb-4">Join Rainbow Jobs to start your career.</p>
+
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-control" placeholder="John Doe" required>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 job-card">
-                    <div class="card-body p-4 text-white">
-                        <h5 class="fw-bold mb-1">Junior Accountant</h5>
-                        <p class="text-primary fw-semibold">Malabar Trading Co.</p>
-                        <p class="small opacity-75"><i class="bi bi-geo-alt-fill text-danger me-2"></i>Trivandrum, Kerala</p>
-                        <p class="card-text small mt-3 opacity-60">Assist in financial reporting, GST filing, and day-to-day bookkeeping using Tally.</p>
-                    </div>
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" placeholder="name@student.com" required>
                 </div>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" placeholder="Create a password" required>
+                </div>
+                <div class="form-check small mb-4">
+                    <input class="form-check-input" type="checkbox" id="terms" required>
+                    <label class="form-check-label" for="terms">
+                        I agree to the <a href="#" class="toggle-link">Terms & Conditions</a>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+
+            <p class="text-center mt-4 small ">
+                Already have an account? <span class="toggle-link" onclick="toggleForm('signIn')">Sign in here</span>
+            </p>
         </div>
-    </main>
+    </div>
 
-    <footer class="footer-section">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-md-5">
-                    <h4 class="fw-bold mb-3 text-white">Rainbow<span style="color: var(--primary-color);">Jobs</span></h4>
-                    <p class="footer-text">The leading career consultancy in Kerala for students and young professionals. Bridging the gap between academic life and your professional career.</p>
-                </div>
+    <script>
+        function toggleForm(type) {
+            const signIn = document.getElementById('signInForm');
+            const signUp = document.getElementById('signUpForm');
 
-                <div class="col-md-4">
-                    <span class="footer-heading">Office Location</span>
-                    <p class="footer-text mb-1"><i class="bi bi-geo-alt-fill footer-icon"></i>Rainbow Jobs Consultancy</p>
-                    <p class="footer-text mb-1">2nd Floor, City Center Mall</p>
-                    <p class="footer-text">Kozhikode, Kerala, India - 673001</p>
-                </div>
-
-                <div class="col-md-3">
-                    <span class="footer-heading">Contact Us</span>
-                    <p class="footer-text mb-2"><i class="bi bi-telephone-fill footer-icon"></i>+91 98765 43210</p>
-                    <p class="footer-text"><i class="bi bi-envelope-fill footer-icon"></i>support@rainbowjobs.in</p>
-                </div>
-            </div>
-            
-            <hr class="my-5 border-secondary opacity-25">
-            <div class="text-center">
-                <p class="footer-text small mb-0">&copy; 2026 Rainbow Jobs Consultancy. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+            if (type === 'signUp') {
+                signIn.classList.remove('active');
+                signUp.classList.add('active');
+            } else {
+                signUp.classList.remove('active');
+                signIn.classList.add('active');
+            }
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -179,3 +179,11 @@ body.dark-theme {
     /* Adds spacing above the CEO card so it doesn't touch the search bar */
     .ceo-glass-card { padding: 20px; margin-top: 3rem; max-width: 100%; }
 }
+@media (max-width: 767px) {
+    /* FORCE 1 CARD PER ROW ON MOBILE */
+    #job-container > div {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+}
