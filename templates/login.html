@@ -148,6 +148,9 @@
                 </div>
                 <div class="modal-body py-4">
                     
+                    <div id="otpErrorMsg" class="alert alert-danger d-none py-2 small border-0 mb-3" style="background: rgba(220, 53, 69, 0.1); color: #ff6b6b;">
+                        </div>
+                    
                     <div id="phoneInputStep">
                         <p class="text-white opacity-75 small mb-3">Enter your mobile number to receive a secure access code.</p>
                         <div class="custom-input-group mb-3">
@@ -175,19 +178,32 @@
     <script src="{% static 'js/login.js' %}?v=3.0"></script>
     
     <script>
-        // Grab the Django security token from the main login form
         const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const errorBox = document.getElementById('otpErrorMsg');
+
+        // Helper function to show errors
+        function showError(message) {
+            errorBox.textContent = message;
+            errorBox.classList.remove('d-none');
+        }
+
+        // Helper function to hide errors
+        function hideError() {
+            errorBox.classList.add('d-none');
+            errorBox.textContent = '';
+        }
 
         // --- STEP 1: SEND OTP ---
         document.getElementById('sendOtpBtn').addEventListener('click', function() {
             const phone = document.getElementById('mobileNumber').value;
             const btn = this;
+            
+            hideError(); // Clear old errors
 
             if(phone.length >= 10) {
                 btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending...';
                 btn.disabled = true;
 
-                // Call the Django backend
                 fetch('{% url "send_otp" %}', {
                     method: 'POST',
                     headers: {
@@ -199,18 +215,21 @@
                 .then(response => response.json())
                 .then(data => {
                     if(data.status === 'success') {
-                        // Switch UI to Step 2
                         document.getElementById('phoneInputStep').classList.add('d-none');
                         document.getElementById('otpInputStep').classList.remove('d-none');
                     } else {
-                        alert(data.message);
+                        showError(data.message); // <-- Shows the beautiful error UI
                         btn.innerHTML = 'Send OTP Code';
                         btn.disabled = false;
                     }
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => {
+                    showError("Server connection failed. Try again.");
+                    btn.innerHTML = 'Send OTP Code';
+                    btn.disabled = false;
+                });
             } else {
-                alert("Please enter a valid mobile number.");
+                showError("Please enter a valid 10-digit mobile number.");
             }
         });
 
@@ -220,11 +239,12 @@
             const otp = document.getElementById('otpCode').value;
             const btn = this;
 
+            hideError(); // Clear old errors
+
             if(otp.length === 6) {
                 btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Verifying...';
                 btn.disabled = true;
 
-                // Send the OTP back to Django to check
                 fetch('{% url "verify_otp" %}', {
                     method: 'POST',
                     headers: {
@@ -239,18 +259,21 @@
                 .then(response => response.json())
                 .then(data => {
                     if(data.status === 'success') {
-                        // Success! Send them to the homepage
                         window.location.href = data.redirect;
                     } else {
-                        alert(data.message);
+                        showError(data.message); // <-- Shows the beautiful error UI
                         btn.innerHTML = 'Verify & Access Portal';
                         btn.disabled = false;
-                        document.getElementById('otpCode').value = ''; // clear input
+                        document.getElementById('otpCode').value = ''; 
                     }
                 })
-                .catch(error => console.error('Error:', error));
+                .catch(error => {
+                    showError("Verification failed. Please try again.");
+                    btn.innerHTML = 'Verify & Access Portal';
+                    btn.disabled = false;
+                });
             } else {
-                alert("Please enter the 6-digit code.");
+                showError("Please enter the 6-digit code.");
             }
         });
     </script>
