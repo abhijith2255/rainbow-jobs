@@ -9,4 +9,6 @@ urlpatterns = [
     
     # Required for django-allauth (Google Login)
     path('accounts/', include('allauth.urls')), 
+    # Connects to your admin dashboard
+    path('management/', include('portal_admin.urls')),
 ]

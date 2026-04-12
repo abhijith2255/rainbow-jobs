@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # Your App
-    'jobs',
+    'jobs','portal_admin',
+
 
     # ==========================================
     # ADDED FOR GOOGLE SOCIAL LOGIN (AllAuth)
@@ -158,3 +159,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# settings.py
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'

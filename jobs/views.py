@@ -6,23 +6,43 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import JsonResponse
 from .models import PhoneOTP
+from .models import Job, Category
+
+# ==========================================
+# 1. MAIN PAGES
+# ==========================================
+
+# Make sure you import your models at the top of views.py!
+from .models import Job, Category 
 
 # ==========================================
 # 1. MAIN PAGES
 # ==========================================
 
 def home(request):
-    """Renders the main Rainbow Jobs landing page."""
-    return render(request, 'index.html')
+    """Renders the main Rainbow Jobs landing page with active jobs."""
+    # Fetch all categories and only jobs that are marked as active
+    categories = Category.objects.all()
+    active_jobs = Job.objects.filter(is_active=True).order_by('-created_at') # Newest first
+    
+    context = {
+        'categories': categories,
+        'jobs': active_jobs,
+    }
+    return render(request, 'index.html', context)
 
-# ==========================================
-# 2. STANDARD AUTHENTICATION (Username/Password)
-# ==========================================
+# Add this quick placeholder view so our "View Details" button doesn't crash
+def job_detail(request, job_id):
+    """Renders the full details of a specific job."""
+    job = Job.objects.get(id=job_id)
+    return render(request, 'job_detail.html', {'job': job})
 
 def login_view(request):
     """Handles standard username and password login."""
-    # If they are already logged in, send them to the homepage
+    # If they are already logged in, send them to their proper home
     if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return redirect('admin_dashboard')
         return redirect('home')
 
     if request.method == 'POST':
@@ -34,87 +54,14 @@ def login_view(request):
 
         if user is not None:
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            return redirect('home')
-        else:
-            messages.error(request, 'Invalid username or password.')
-            return redirect('login')
-
-    # If it's a normal visit (GET request), show the login page
-    return render(request, 'login.html') 
-
-def register_view(request):
-    """Handles new user registration."""
-    if request.method == 'POST':
-        user_name = request.POST.get('username')
-        email = request.POST.get('email')
-        pass_word = request.POST.get('password')
-
-        # Check if username already exists
-        if User.objects.filter(username=user_name).exists():
-            messages.error(request, 'Username already taken.')
-            return redirect('login')
-
-        # Check if email already exists
-        if User.objects.filter(email=email).exists():
-            messages.error(request, 'Email already registered.')
-            return redirect('login')
-
-        # Create the new user
-        user = User.objects.create_user(username=user_name, email=email, password=pass_word)
-        user.save()
-        
-        # Automatically log them in after registering
-        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-        return redirect('home')
-
-    return render(request, 'login.html')
-
-def logout_view(request):
-    """Logs the user out and sends them home."""
-    logout(request)
-    return redirect('home')
-
-# ==========================================
-# 3. PHONE OTP AUTHENTICATION (AJAX)
-# ==========================================
-
-import random
-import requests
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.http import JsonResponse
-from .models import PhoneOTP
-
-# ==========================================
-# 1. MAIN PAGES
-# ==========================================
-
-def home(request):
-    """Renders the main Rainbow Jobs landing page."""
-    return render(request, 'index.html')
-
-# ==========================================
-# 2. STANDARD AUTHENTICATION (Username/Password)
-# ==========================================
-
-def login_view(request):
-    """Handles standard username and password login."""
-    # If they are already logged in, send them to the homepage
-    if request.user.is_authenticated:
-        return redirect('home')
-
-    if request.method == 'POST':
-        user_name = request.POST.get('username')
-        pass_word = request.POST.get('password')
-
-        # Check if the user exists and password matches
-        user = authenticate(request, username=user_name, password=pass_word)
-
-        if user is not None:
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            return redirect('home')
+            
+            # --- SMART REDIRECT ---
+            if user.is_superuser:
+                return redirect('admin_dashboard') # Admins go to Command Center
+            else:
+                return redirect('home')            # Users go to job collection
+            # ----------------------
+            
         else:
             messages.error(request, 'Invalid username or password.')
             return redirect('login')
@@ -177,11 +124,11 @@ def send_phone_otp(request):
         
         # --- FAST2SMS API INTEGRATION ---
         url = "https://www.fast2sms.com/dev/bulkV2"
-        api_key = "OfyY71G2cPhzTlR3vInoNjsM5pmwgkWqFSu0dZDrJQL4V9Kba6ogP8skYQAEmcLUHIMfTbRy046VK7rO"  # <-- PASTE YOUR REAL API KEY HERE
+        api_key = "OfyY71G2cPhzTlR3vInoNjsM5pmwgkWqFSu0dZDrJQL4V9Kba6ogP8skYQAEmcLUHIMfTbRy046VK7rO"  # Keep this safe!
         
         querystring = {
             "authorization": api_key,
-            "variables_values": otp_code,
+            "message": f"Your Rainbow Jobs login code is {otp_code}",
             "language": "english",
             "route": "q",
             "numbers": phone
@@ -229,39 +176,13 @@ def verify_phone_otp(request):
                 # Delete the OTP from the database so it cannot be reused
                 db_record.delete()
                 
-                # Tell the frontend JS to redirect to the homepage
-                return JsonResponse({'status': 'success', 'redirect': '/'})
-            else:
-                return JsonResponse({'status': 'error', 'message': 'Invalid OTP code. Please try again.'})
+                # --- SMART REDIRECT FOR AJAX ---
+                if user.is_superuser:
+                    return JsonResponse({'status': 'success', 'redirect': '/management/dashboard/'})
+                else:
+                    return JsonResponse({'status': 'success', 'redirect': '/'})
+                # -------------------------------
                 
-        except PhoneOTP.DoesNotExist:
-            return JsonResponse({'status': 'error', 'message': 'Session expired. Please request a new OTP.'})
-            
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
-
-
-def verify_phone_otp(request):
-    """Verifies the code and logs the user in."""
-    if request.method == 'POST':
-        phone = request.POST.get('phone_number')
-        user_otp = request.POST.get('otp')
-        
-        try:
-            # Find the OTP record for this phone number
-            db_record = PhoneOTP.objects.get(phone_number=phone)
-            
-            if db_record.otp == user_otp:
-                # Success! Get the user (or create a new account using their phone number)
-                user, created = User.objects.get_or_create(username=phone)
-                
-                # Log them in securely
-                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-                
-                # Delete the OTP from the database so it cannot be reused
-                db_record.delete()
-                
-                # Tell the frontend JS to redirect to the homepage
-                return JsonResponse({'status': 'success', 'redirect': '/'})
             else:
                 return JsonResponse({'status': 'error', 'message': 'Invalid OTP code. Please try again.'})
                 

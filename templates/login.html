@@ -1,5 +1,7 @@
 {% load static %}
-{% load socialaccount %} <!DOCTYPE html>
+{% load socialaccount %}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,131 +14,154 @@
     
     <link rel="stylesheet" href="{% static 'css/style.css' %}?v=24.0">
     <link rel="stylesheet" href="{% static 'css/loginstyle.css' %}?v=4.0">
+
+    <style>
+        .letter-spacing-1 { letter-spacing: 1.5px; }
+        .hover-gold { transition: color 0.3s ease; }
+        .hover-gold:hover { color: var(--gold) !important; }
+        .executive-header-footer { background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); }
+    </style>
 </head>
 <body class="dark-theme auth-page">
 
-    <a href="{% url 'home' %}" class="back-home-btn"><i class="bi bi-arrow-left me-2"></i> Back to Collection</a>
+    <div class="d-flex flex-column min-vh-100">
 
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        
-        <div class="auth-card-container">
-            <div class="auth-slider" id="authSlider">
-                
-                <div class="auth-panel login-panel">
-                    <div class="text-center mb-4">
-                        <h2 class="logo text-white fs-3 mb-1">RAINBOW<span class="text-gold">JOBS</span></h2>
-                        <p class="text-white opacity-50 small">Executive Portal Access</p>
-                    </div>
-
-                    <form method="POST" action="{% url 'login' %}">
-                        {% csrf_token %}
-                        
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="alert alert-danger py-2 small border-0" style="background: rgba(220, 53, 69, 0.1); color: #ff6b6b;">
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-
-                        <div class="custom-input-group mb-3">
-                            <i class="bi bi-person custom-input-icon"></i>
-                            <input type="text" name="username" class="custom-input" placeholder="Username" required>
-                        </div>
-                        
-                        <div class="custom-input-group mb-4">
-                            <i class="bi bi-lock custom-input-icon"></i>
-                            <input type="password" name="password" class="custom-input" placeholder="Password" required>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center mb-4 small">
-                            <label class="text-white opacity-75 d-flex align-items-center gap-2">
-                                <input type="checkbox" class="custom-checkbox"> Remember me
-                            </label>
-                            <a href="#" class="text-gold text-decoration-none">Forgot Password?</a>
-                        </div>
-
-                        <button type="submit" class="btn btn-gold w-100 mb-3 py-2">Sign In</button>
-                    </form>
-
-                    <div class="d-flex align-items-center mb-3">
-                        <hr class="flex-grow-1 border-secondary opacity-25 m-0">
-                        <span class="mx-3 text-white opacity-50 small" style="font-size: 0.7rem; letter-spacing: 1px;">OR CONTINUE WITH</span>
-                        <hr class="flex-grow-1 border-secondary opacity-25 m-0">
-                    </div>
-
-                    <div class="d-flex gap-3 mb-4">
-                        <form action="{% provider_login_url 'google' %}" method="post" class="flex-grow-1 d-flex">
-                            {% csrf_token %}
-                            <button type="submit" class="btn social-auth-btn w-100 d-flex align-items-center justify-content-center gap-2">
-                                <i class="bi bi-google text-danger fs-5"></i> <span class="small fw-bold">Google</span>
-                            </button>
-                        </form>
-                        
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#otpModal" class="btn social-auth-btn flex-grow-1 d-flex align-items-center justify-content-center gap-2">
-                            <i class="bi bi-phone text-info fs-5"></i> <span class="small fw-bold">Phone</span>
-                        </button>
-                    </div>
-
-                    <p class="text-center text-white opacity-50 small mb-0">
-                        Don't have an account? 
-                        <a href="#" class="text-gold fw-bold text-decoration-none toggle-btn" id="showRegister">Apply for Access</a>
-                    </p>
-                </div>
-
-                <div class="auth-panel register-panel">
-                    <div class="text-center mb-4">
-                        <h2 class="logo text-white fs-3 mb-1">RAINBOW<span class="text-gold">JOBS</span></h2>
-                        <p class="text-white opacity-50 small">Join the Executive Network</p>
-                    </div>
-
-                    <form method="POST" action="{% url 'register' %}">
-                        {% csrf_token %}
-                        <div class="custom-input-group mb-3">
-                            <i class="bi bi-person custom-input-icon"></i>
-                            <input type="text" name="username" class="custom-input" placeholder="Choose a Username" required>
-                        </div>
-
-                        <div class="custom-input-group mb-3">
-                            <i class="bi bi-envelope custom-input-icon"></i>
-                            <input type="email" name="email" class="custom-input" placeholder="Professional Email" required>
-                        </div>
-                        
-                        <div class="custom-input-group mb-4">
-                            <i class="bi bi-lock custom-input-icon"></i>
-                            <input type="password" name="password" class="custom-input" placeholder="Create Password" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-gold w-100 mb-3 py-2">Submit Application</button>
-                    </form>
-
-                    <div class="d-flex align-items-center mb-3">
-                        <hr class="flex-grow-1 border-secondary opacity-25 m-0">
-                        <span class="mx-3 text-white opacity-50 small" style="font-size: 0.7rem; letter-spacing: 1px;">OR REGISTER WITH</span>
-                        <hr class="flex-grow-1 border-secondary opacity-25 m-0">
-                    </div>
-
-                    <div class="d-flex gap-3 mb-4">
-                        <form action="{% provider_login_url 'google' %}" method="post" class="flex-grow-1 d-flex">
-                            {% csrf_token %}
-                            <button type="submit" class="btn social-auth-btn w-100 d-flex align-items-center justify-content-center gap-2">
-                                <i class="bi bi-google text-danger fs-5"></i> <span class="small fw-bold">Google</span>
-                            </button>
-                        </form>
-                        
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#otpModal" class="btn social-auth-btn flex-grow-1 d-flex align-items-center justify-content-center gap-2">
-                            <i class="bi bi-phone text-info fs-5"></i> <span class="small fw-bold">Phone</span>
-                        </button>
-                    </div>
-
-                    <p class="text-center text-white opacity-50 small mb-0">
-                        Already an executive member? 
-                        <a href="#" class="text-gold fw-bold text-decoration-none toggle-btn" id="showLogin">Sign In Here</a>
-                    </p>
-                </div>
-
+        <header class="executive-header-footer py-3 px-4 px-md-5 d-flex justify-content-between align-items-center border-bottom border-secondary border-opacity-25 w-100">
+            <a href="{% url 'home' %}" class="text-decoration-none d-flex align-items-center gap-2 text-white opacity-75 hover-gold">
+                <i class="bi bi-arrow-left"></i> 
+                <span class="small fw-semibold letter-spacing-1" style="font-size: 0.8rem;">BACK TO COLLECTION</span>
+            </a>
+            <div class="text-gold small fw-bold letter-spacing-1 d-flex align-items-center gap-2" style="font-size: 0.8rem;">
+                <i class="bi bi-shield-lock-fill fs-6"></i> <span>SECURE PORTAL</span>
             </div>
-        </div>
+        </header>
+
+        <main class="flex-grow-1 d-flex justify-content-center align-items-center py-5 px-3">
+            <div class="auth-card-container">
+                <div class="auth-slider" id="authSlider">
+                    
+                    <div class="auth-panel login-panel">
+                        <div class="text-center mb-4">
+                            <h2 class="logo text-white fs-3 mb-1">RAINBOW<span class="text-gold">JOBS</span></h2>
+                            <p class="text-white opacity-50 small">Executive Portal Access</p>
+                        </div>
+
+                        <form method="POST" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-danger py-2 small border-0" style="background: rgba(220, 53, 69, 0.1); color: #ff6b6b;">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                            <div class="custom-input-group mb-3">
+                                <i class="bi bi-person custom-input-icon"></i>
+                                <input type="text" name="username" class="custom-input" placeholder="Username" required>
+                            </div>
+                            
+                            <div class="custom-input-group mb-4">
+                                <i class="bi bi-lock custom-input-icon"></i>
+                                <input type="password" name="password" class="custom-input" placeholder="Password" required>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-4 small">
+                                <label class="text-white opacity-75 d-flex align-items-center gap-2">
+                                    <input type="checkbox" class="custom-checkbox"> Remember me
+                                </label>
+                                <a href="#" class="text-gold text-decoration-none hover-gold">Forgot Password?</a>
+                            </div>
+
+                            <button type="submit" class="btn btn-gold w-100 mb-3 py-2">Sign In</button>
+                        </form>
+
+                        <div class="d-flex align-items-center mb-3">
+                            <hr class="flex-grow-1 border-secondary opacity-25 m-0">
+                            <span class="mx-3 text-white opacity-50 small" style="font-size: 0.7rem; letter-spacing: 1px;">OR CONTINUE WITH</span>
+                            <hr class="flex-grow-1 border-secondary opacity-25 m-0">
+                        </div>
+
+                        <div class="d-flex gap-3 mb-4">
+                            <form action="{% provider_login_url 'google' %}" method="post" class="flex-grow-1 d-flex">
+                                {% csrf_token %}
+                                <button type="submit" class="btn social-auth-btn w-100 d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-google text-danger fs-5"></i> <span class="small fw-bold">Google</span>
+                                </button>
+                            </form>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#otpModal" class="btn social-auth-btn flex-grow-1 d-flex align-items-center justify-content-center gap-2">
+                                <i class="bi bi-phone text-info fs-5"></i> <span class="small fw-bold">Phone</span>
+                            </button>
+                        </div>
+
+                        <p class="text-center text-white opacity-50 small mb-0">
+                            Don't have an account? 
+                            <a href="#" class="text-gold fw-bold text-decoration-none toggle-btn hover-gold" id="showRegister">Apply for Access</a>
+                        </p>
+                    </div>
+
+                    <div class="auth-panel register-panel">
+                        <div class="text-center mb-4">
+                            <h2 class="logo text-white fs-3 mb-1">RAINBOW<span class="text-gold">JOBS</span></h2>
+                            <p class="text-white opacity-50 small">Join the Executive Network</p>
+                        </div>
+
+                        <form method="POST" action="{% url 'register' %}">
+                            {% csrf_token %}
+                            <div class="custom-input-group mb-3">
+                                <i class="bi bi-person custom-input-icon"></i>
+                                <input type="text" name="username" class="custom-input" placeholder="Choose a Username" required>
+                            </div>
+                            <div class="custom-input-group mb-3">
+                                <i class="bi bi-envelope custom-input-icon"></i>
+                                <input type="email" name="email" class="custom-input" placeholder="Professional Email" required>
+                            </div>
+                            <div class="custom-input-group mb-4">
+                                <i class="bi bi-lock custom-input-icon"></i>
+                                <input type="password" name="password" class="custom-input" placeholder="Create Password" required>
+                            </div>
+                            <button type="submit" class="btn btn-gold w-100 mb-3 py-2">Submit Application</button>
+                        </form>
+
+                        <div class="d-flex align-items-center mb-3">
+                            <hr class="flex-grow-1 border-secondary opacity-25 m-0">
+                            <span class="mx-3 text-white opacity-50 small" style="font-size: 0.7rem; letter-spacing: 1px;">OR REGISTER WITH</span>
+                            <hr class="flex-grow-1 border-secondary opacity-25 m-0">
+                        </div>
+
+                        <div class="d-flex gap-3 mb-4">
+                            <form action="{% provider_login_url 'google' %}" method="post" class="flex-grow-1 d-flex">
+                                {% csrf_token %}
+                                <button type="submit" class="btn social-auth-btn w-100 d-flex align-items-center justify-content-center gap-2">
+                                    <i class="bi bi-google text-danger fs-5"></i> <span class="small fw-bold">Google</span>
+                                </button>
+                            </form>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#otpModal" class="btn social-auth-btn flex-grow-1 d-flex align-items-center justify-content-center gap-2">
+                                <i class="bi bi-phone text-info fs-5"></i> <span class="small fw-bold">Phone</span>
+                            </button>
+                        </div>
+
+                        <p class="text-center text-white opacity-50 small mb-0">
+                            Already an executive member? 
+                            <a href="#" class="text-gold fw-bold text-decoration-none toggle-btn hover-gold" id="showLogin">Sign In Here</a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <footer class="executive-header-footer py-4 px-4 px-md-5 d-flex flex-column flex-md-row justify-content-between align-items-center border-top border-secondary border-opacity-25 w-100 mt-auto">
+            <div class="text-white opacity-50 small mb-3 mb-md-0" style="font-size: 0.8rem;">
+                &copy; {% now "Y" %} Rainbow Jobs. All rights reserved.
+            </div>
+            <div class="d-flex gap-4 small" style="font-size: 0.8rem;">
+                <a href="#" class="text-white opacity-50 text-decoration-none hover-gold">Privacy Policy</a>
+                <a href="#" class="text-white opacity-50 text-decoration-none hover-gold">Terms of Service</a>
+                <a href="#" class="text-white opacity-50 text-decoration-none hover-gold">Help Center</a>
+            </div>
+        </footer>
+
     </div>
 
     <div class="modal fade" id="otpModal" tabindex="-1" aria-hidden="true">
@@ -147,9 +172,7 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body py-4">
-                    
-                    <div id="otpErrorMsg" class="alert alert-danger d-none py-2 small border-0 mb-3" style="background: rgba(220, 53, 69, 0.1); color: #ff6b6b;">
-                        </div>
+                    <div id="otpErrorMsg" class="alert alert-danger d-none py-2 small border-0 mb-3" style="background: rgba(220, 53, 69, 0.1); color: #ff6b6b;"></div>
                     
                     <div id="phoneInputStep">
                         <p class="text-white opacity-75 small mb-3">Enter your mobile number to receive a secure access code.</p>
@@ -168,7 +191,6 @@
                         </div>
                         <button id="verifyOtpBtn" class="btn btn-gold w-100 py-2">Verify & Access Portal</button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -181,24 +203,20 @@
         const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
         const errorBox = document.getElementById('otpErrorMsg');
 
-        // Helper function to show errors
         function showError(message) {
             errorBox.textContent = message;
             errorBox.classList.remove('d-none');
         }
 
-        // Helper function to hide errors
         function hideError() {
             errorBox.classList.add('d-none');
             errorBox.textContent = '';
         }
 
-        // --- STEP 1: SEND OTP ---
         document.getElementById('sendOtpBtn').addEventListener('click', function() {
             const phone = document.getElementById('mobileNumber').value;
             const btn = this;
-            
-            hideError(); // Clear old errors
+            hideError(); 
 
             if(phone.length >= 10) {
                 btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending...';
@@ -218,7 +236,7 @@
                         document.getElementById('phoneInputStep').classList.add('d-none');
                         document.getElementById('otpInputStep').classList.remove('d-none');
                     } else {
-                        showError(data.message); // <-- Shows the beautiful error UI
+                        showError(data.message); 
                         btn.innerHTML = 'Send OTP Code';
                         btn.disabled = false;
                     }
@@ -233,13 +251,11 @@
             }
         });
 
-        // --- STEP 2: VERIFY OTP ---
         document.getElementById('verifyOtpBtn').addEventListener('click', function() {
             const phone = document.getElementById('mobileNumber').value;
             const otp = document.getElementById('otpCode').value;
             const btn = this;
-
-            hideError(); // Clear old errors
+            hideError(); 
 
             if(otp.length === 6) {
                 btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Verifying...';
@@ -251,8 +267,7 @@
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'X-CSRFToken': csrfToken
                     },
-                    body: new URLSearchParams({
-                        'phone_number': phone,
+                    body: new URLSearchParams({'phone_number': phone,
                         'otp': otp
                     })
                 })
@@ -261,7 +276,7 @@
                     if(data.status === 'success') {
                         window.location.href = data.redirect;
                     } else {
-                        showError(data.message); // <-- Shows the beautiful error UI
+                        showError(data.message);
                         btn.innerHTML = 'Verify & Access Portal';
                         btn.disabled = false;
                         document.getElementById('otpCode').value = ''; 
