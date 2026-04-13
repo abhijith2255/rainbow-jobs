@@ -57,3 +57,29 @@ class Job(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.location}"
+    
+class JobApplication(models.Model):
+    STATUS_CHOICES = [
+        ('Pending', 'Pending Review'),
+        ('Reviewed', 'Reviewed'),
+        ('Interview', 'Interviewing'),
+        ('Onboarding', 'Hired / Onboarding'),
+        ('Rejected', 'Rejected'),
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
+    
+    # --- NEW: PRIVATE ADMIN NOTES ---
+    admin_notes = models.TextField(blank=True, help_text="Private notes hidden from the candidate.")
+    rating = models.IntegerField(default=0, help_text="1 to 5 star rating.")
+    # -------------------------------
+
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applications')
+    applicant_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    resume_link = models.URLField(blank=True)
+    cover_letter = models.TextField(blank=True)
+    applied_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.applicant_name} applied for {self.job.title}"

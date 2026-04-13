@@ -1,12 +1,12 @@
 import random
 import requests
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import JsonResponse
 from .models import PhoneOTP
-from .models import Job, Category
+from .models import Job, Category, JobApplication  # Make sure to import JobApplication if you have it defined in models.py
 
 # ==========================================
 # 1. MAIN PAGES
@@ -33,9 +33,42 @@ def home(request):
 
 # Add this quick placeholder view so our "View Details" button doesn't crash
 def job_detail(request, job_id):
-    """Renders the full details of a specific job."""
-    job = Job.objects.get(id=job_id)
-    return render(request, 'job_detail.html', {'job': job})
+    """Renders the full details of a specific job and handles applications."""
+    job = get_object_or_404(Job, id=job_id)
+    
+    # --- NEW: Handle the Application Form Submission ---
+    if request.method == 'POST':
+        name = request.POST.get('applicant_name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        resume = request.POST.get('resume_link')
+        cover = request.POST.get('cover_letter')
+        
+        # Save it to the database
+        JobApplication.objects.create(
+            job=job,
+            applicant_name=name,
+            email=email,
+            phone=phone,
+            resume_link=resume,
+            cover_letter=cover
+        )
+        
+        # Send a success alert to the user
+        messages.success(request, f"Success! Your application for '{job.title}' has been submitted securely.")
+        return redirect('job_detail', job_id=job.id)
+    # ---------------------------------------------------
+
+    similar_jobs = Job.objects.filter(
+        category=job.category, 
+        is_active=True
+    ).exclude(id=job.id).order_by('-created_at')[:3]
+    
+    context = {
+        'job': job,
+        'similar_jobs': similar_jobs,
+    }
+    return render(request, 'job_detail.html', context)
 
 def login_view(request):
     """Handles standard username and password login."""

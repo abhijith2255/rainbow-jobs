@@ -14,4 +14,5 @@ urlpatterns = [
     path('send-otp/', views.send_phone_otp, name='send_otp'),
     path('verify-otp/', views.verify_phone_otp, name='verify_otp'),
     path('job/<int:job_id>/', views.job_detail, name='job_detail'),
+    
 ]

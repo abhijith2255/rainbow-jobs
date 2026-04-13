@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Jobs | Rainbow Jobs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* BASE THEME */
+        body { background-color: #0f172a; color: #ffffff; font-family: 'Inter', sans-serif; margin: 0; }
+        .main-content { margin-left: 280px; width: calc(100% - 280px); padding: 30px; }
+        @media (max-width: 992px) { .main-content { margin-left: 0; width: 100%; } }
+
+        /* CARD & TABLE */
+        .custom-card { background-color: #1e293b; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); padding: 25px; }
+        .table-responsive { overflow-x: auto !important; position: relative; }
+        .table-custom { width: 100%; min-width: 1000px; border-collapse: separate; border-spacing: 0; }
+        
+        /* FORCE DARK THEME - FIXES INVISIBLE TEXT */
+        .table-custom thead th, 
+        .table-custom tbody tr, 
+        .table-custom tbody td { 
+            background-color: #1e293b !important; 
+            color: #ffffff !important; 
+            border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+            padding: 15px;
+            vertical-align: middle;
+        }
+        .table-custom thead th { color: #94a3b8 !important; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* STICKY ACTIONS FIX (PC VISIBILITY) */
+        .col-actions {
+            position: sticky !important;
+            right: 0;
+            z-index: 10;
+            background-color: #1e293b !important;
+            width: 160px;
+            text-align: right;
+            box-shadow: -10px 0 15px rgba(0,0,0,0.4);
+        }
+        .table-custom tbody tr:hover td, 
+        .table-custom tbody tr:hover .col-actions { background-color: #242f41 !important; }
+
+        /* FILTER TABS */
+        .filter-group-title { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; font-weight: 700; }
+        .job-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .job-tab { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; font-weight: 600; font-size: 0.8rem; padding: 8px 16px; border-radius: 8px; border: none; transition: 0.2s; }
+        .job-tab.active { color: #1e293b; background: #ffc107; box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3); }
+
+        .btn-action {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
+            color: #fff; text-decoration: none;
+        }
+        .btn-action:hover { border-color: #ffc107; color: #ffc107; }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar" id="sidebar" style="width: 280px; height: 100vh; position: fixed; background: #161e2e; padding: 20px; border-right: 1px solid rgba(255,255,255,0.05);">
+        <h4 class="text-white fw-bold mb-4">RAINBOW<span style="color:#ffc107">JOBS</span></h4>
+        <div class="d-flex flex-column gap-2">
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-dark text-start border-0 text-white-50"><i class="bi bi-grid-fill me-2"></i> Dashboard</a>
+            <a href="{% url 'all_applications' %}" class="btn btn-dark text-start border-0 text-white-50"><i class="bi bi-people-fill me-2"></i> ATS</a>
+            <a href="{% url 'manage_jobs' %}" class="btn btn-dark text-start border-0 text-white" style="background: rgba(255,193,7,0.1); color:#ffc107 !important;"><i class="bi bi-briefcase-fill me-2"></i> Manage Jobs</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <h3 class="text-white fw-bold mb-4">Job Management</h3>
+
+        <div class="custom-card shadow-lg">
+            
+            <div class="mb-4">
+                <div class="filter-group-title">View By Status</div>
+                <div class="job-tabs">
+                    <button class="job-tab filter-btn active" data-type="status" data-target="all">All Jobs</button>
+                    <button class="job-tab filter-btn" data-type="new" data-target="true">Newly Added</button>
+                    <button class="job-tab filter-btn" data-type="status" data-target="active">Active</button>
+                    <button class="job-tab filter-btn" data-type="status" data-target="hidden">Hidden</button>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="filter-group-title">View By Category</div>
+                <div class="job-tabs">
+                    {% for cat in categories %}
+                        <button class="job-tab filter-btn" data-type="category" data-target="{{ cat.name|slugify }}">{{ cat.name }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-custom">
+                    <thead>
+                        <tr>
+                            <th>Job Title</th>
+                            <th>Location</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th class="col-actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for job in jobs %}
+                        <tr class="job-row" 
+                            data-status="{% if job.is_active %}active{% else %}hidden{% endif %}" 
+                            data-category="{{ job.category.name|slugify }}"
+                            data-new="{% if forloop.counter <= 10 %}true{% else %}false{% endif %}">
+                            
+                            <td>
+                                <strong class="d-block">{{ job.title }}</strong>
+                                <small class="text-white-50">{{ job.company_name|default:"Confidential" }}</small>
+                            </td>
+                            <td class="text-white-50 small">{{ job.location }}</td>
+                            <td><span class="badge border border-warning text-warning" style="font-size: 10px;">{{ job.category.name }}</span></td>
+                            <td>
+                                {% if job.is_active %}
+                                    <span class="text-success fw-bold small">Visible</span>
+                                {% else %}
+                                    <span class="text-muted fw-bold small">Hidden</span>
+                                {% endif %}
+                            </td>
+                            <td class="col-actions">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <a href="{% url 'edit_job' job.id %}" class="btn-action" title="Edit">
+                                        <i class="bi bi-pencil-square text-info"></i>
+                                    </a>
+                                    <a href="{% url 'toggle_job_status' job.id %}" class="btn-action" title="Toggle">
+                                        {% if job.is_active %}
+                                            <i class="bi bi-eye-slash-fill text-warning"></i>
+                                        {% else %}
+                                            <i class="bi bi-eye-fill text-success"></i>
+                                        {% endif %}
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const rows = document.querySelectorAll('.job-row');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const type = this.getAttribute('data-type');
+                    const target = this.getAttribute('data-target');
+
+                    rows.forEach(row => {
+                        if (target === 'all') {
+                            row.style.display = 'table-row';
+                        } else if (row.getAttribute('data-' + (type || 'status')) === target) {
+                            row.style.display = 'table-row';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
