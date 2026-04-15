@@ -8,73 +8,76 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=8.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=9.1">
 </head>
 <body class="dark-theme">
 
-    <nav class="navbar navbar-expand-lg fixed-top nav-transparent" id="main-navbar">
+    <nav class="navbar navbar-expand-lg fixed-top nav-transparent transition-all" id="main-navbar">
         <div class="container">
-            <a class="navbar-brand logo text-white" href="#">RAINBOW<span class="text-gold">JOBS</span></a>
+            <a class="navbar-brand logo text-white" href="#">RAINBOW<span class="text-gold shimmer-text">JOBS</span></a>
             <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="bi bi-list fs-1 text-white"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center gap-lg-3">
-                    
-                    <li class="nav-item"><a class="nav-link text-white" href="#">About Us</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="#">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link nav-hover text-white" href="#">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link nav-hover text-white" href="#">Contact</a></li>
                     
                     {% if user.is_authenticated %}
                         <li class="nav-item d-none d-lg-block"><span class="nav-link text-white opacity-25">|</span></li>
-                        <li class="nav-item"><a class="nav-link text-white text-capitalize" href="#"><i class="bi bi-person-circle me-1"></i> {{ user.username }}</a></li>
                         
-                        <li class="nav-item"><a class="nav-link text-danger fw-bold" href="{% url 'logout' %}">Logout</a></li>
+                        {% if user.is_superuser %}
+                            <li class="nav-item"><a class="nav-link nav-hover text-info fw-bold" href="{% url 'admin_dashboard' %}"><i class="bi bi-speedometer2 me-1"></i> Command Center</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link nav-hover text-white text-capitalize" href="{% url 'user_profile' %}"><i class="bi bi-person-circle me-1"></i> {{ user.username }}</a></li>
+                        {% endif %}
                         
+                        <li class="nav-item"><a class="nav-link text-danger fw-bold hover-scale" href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
                         <li class="nav-item d-none d-lg-block"><span class="nav-link text-white opacity-25">|</span></li>
-                        
-                        <li class="nav-item"><a class="nav-link text-white" href="{% url 'login' %}">Login</a></li>
-                        
-                        <li class="nav-item"><a class="nav-link text-gold fw-bold" href="{% url 'register' %}">Register</a></li>
+                        <li class="nav-item"><a class="nav-link nav-hover text-white" href="{% url 'login' %}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link text-gold fw-bold hover-scale" href="{% url 'register' %}">Register</a></li>
                     {% endif %}
 
                     <li class="nav-item ms-lg-4 mt-3 mt-lg-0">
-                        <a class="btn btn-gold w-100" href="#">Executive Access</a>
+                        <a class="btn btn-gold w-100 hover-lift" href="#">Executive Access</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="hero-section">
+    <header class="hero-section position-relative overflow-hidden" id="hero">
+        <div class="hero-bg-image parallax-bg"></div>
         <div class="hero-overlay"></div>
+        <canvas id="particle-canvas" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 1; pointer-events: none; opacity: 0.6;"></canvas>
+        
         <div class="container hero-content position-relative z-2">
             <div class="row align-items-center min-vh-100 pt-5">
                 
                 <div class="col-lg-7 text-center text-lg-start animate-fade-up">
-                    <span class="top-label text-white opacity-75">ESTABLISHED 2026</span>
-                    <h1 class="hero-title text-white mt-3">
+                    <span class="top-label text-white opacity-75 tracking-wide"><i class="bi bi-globe2 me-2 text-gold"></i>ESTABLISHED 2026</span>
+                    <h1 class="hero-title text-white mt-3 display-3 fw-bold">
                         Your Future, <br>
-                        <span class="hero-title-italic text-gold">Refined.</span>
+                        <span class="hero-title-italic text-gold shimmer-text" id="dynamic-text"></span><span class="cursor">|</span>
                     </h1>
-                    <p class="hero-subtitle text-white opacity-75 mt-4 mb-5 mx-auto mx-lg-0">
+                    <p class="hero-subtitle text-white opacity-75 mt-4 mb-5 mx-auto mx-lg-0 lead">
                         We don't just find jobs; we curate careers. Experience the most exclusive professional network in Kerala.
                     </p>
                     
-                    <div class="search-glass d-flex align-items-center p-2 mx-auto mx-lg-0">
+                    <div class="search-glass d-flex align-items-center p-2 mx-auto mx-lg-0 shadow-lg">
                         <i class="bi bi-search text-white opacity-50 ms-3 me-2"></i>
                         <input type="text" class="form-control bg-transparent border-0 text-white shadow-none" placeholder="Search by industry or role...">
-                        <button class="btn btn-gold-search px-4 py-2">Explore</button>
+                        <button class="btn btn-gold px-4 py-2 hover-lift">Explore</button>
                     </div>
                 </div>
 
-                <div class="col-lg-5 mt-5 mt-lg-0 animate-fade-up" style="animation-delay: 0.2s;">
-                    <div class="ceo-glass-card mx-auto mx-lg-0 ms-lg-auto">
+                <div class="col-lg-5 mt-5 mt-lg-0 animate-fade-in-right" style="animation-delay: 0.4s;">
+                    <div class="ceo-glass-card mx-auto mx-lg-0 ms-lg-auto float-animation tilt-effect">
                         <div class="d-flex align-items-center mb-3">
-                            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=150&h=150&q=80" alt="CEO" class="ceo-avatar me-3">
+                            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=150&h=150&q=80" alt="CEO" class="ceo-avatar me-3 shadow">
                             <div>
                                 <h5 class="text-white fw-bold mb-0">Vibi T.</h5>
                                 <span class="text-gold fw-bold text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Chief Executive</span>
@@ -93,13 +96,13 @@
     <main class="container py-5 mt-5">
         <div class="row mb-5 align-items-end reveal">
             <div class="col-lg-6 text-center text-lg-start">
-                <h2 class="section-title text-white mb-0">Active <span class="text-gold">Opportunities</span></h2>
+                <h2 class="section-title text-white mb-0">Active <span class="text-gold shimmer-text">Opportunities</span></h2>
             </div>
             <div class="col-lg-6 text-center text-lg-end mt-4 mt-lg-0">
                 <div class="filter-group d-flex flex-wrap justify-content-center justify-content-lg-end gap-2">
-                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn active" data-filter="all">All Roles</button>
                     {% for cat in categories %}
-                        <button class="filter-btn" data-filter="{{ cat.name|slugify }}">{{ cat.name }}</button>
+                        <button class="filter-btn" data-filter="{{ cat.name|slugify }}">{{ cat.name|title }}</button>
                     {% endfor %}
                 </div>
             </div>
@@ -107,80 +110,71 @@
 
         <div class="row g-4" id="job-container">
             {% for job in jobs %}
-            <div class="col-12 col-md-6 col-lg-4 job-item {{ job.category.name|slugify|default:'general' }} animate-fade-up">
-                <div class="job-card">
-                    
+            <div class="col-12 col-md-6 col-lg-4 job-item {{ job.category.name|slugify|default:'general' }} reveal">
+                <div class="job-card transition-all hover-glow">
                     <div class="d-flex justify-content-between align-items-start mb-4">
-                        <div class="job-icon-box">
-                            <i class="bi bi-briefcase"></i>
+                        <div class="job-icon-box transition-all">
+                            <i class="bi bi-briefcase fs-4"></i>
                         </div>
                         <div class="job-category-tag">
-                            <i class="bi bi-briefcase me-2"></i>{{ job.category.name|default:"General" }}
+                            {{ job.category.name|title|default:"General" }}
                         </div>
                     </div>
                     
                     <h5 class="job-title text-white mb-3">{{ job.title }}</h5>
-                    <div class="job-details mb-4">
-                        <p class="mb-1"><i class="bi bi-buildings me-2"></i>{{ job.company_name|default:"Confidential Employer" }}</p>
-                        <p class="mb-0"><i class="bi bi-geo-alt me-2"></i>{{ job.location }}</p>
+                    <div class="job-details mb-4 text-white opacity-75">
+                        <p class="mb-1"><i class="bi bi-buildings me-2 text-gold"></i>{{ job.company_name|default:"Confidential" }}</p>
+                        <p class="mb-0"><i class="bi bi-geo-alt me-2 text-gold"></i>{{ job.location }}</p>
                     </div>
 
-                    <div class="job-card-footer">
-                        <span class="job-salary text-gold">{{ job.salary }}</span>
-                        <a href="{% url 'job_detail' job.id %}" class="btn-view-details">View Details</a>
+                    <div class="job-card-footer border-top border-secondary border-opacity-25 pt-3 mt-auto d-flex justify-content-between align-items-center">
+                        <span class="job-salary text-gold fw-bold">{{ job.salary }}</span>
+                        <a href="{% url 'job_detail' job.id %}" class="btn-view-details text-decoration-none text-white transition-all">View Details <i class="bi bi-arrow-right ms-1"></i></a>
                     </div>
-                    
                 </div>
             </div>
             {% empty %}
-            <div class="col-12 text-center py-5 text-white opacity-50">No opportunities found in this category.</div>
+            <div class="col-12 text-center py-5 text-white opacity-50 reveal">No opportunities found right now.</div>
             {% endfor %}
         </div>
     </main>
 
-    <section class="container py-5 my-5 border-top border-secondary border-opacity-25 reveal">
-        <div class="text-center mb-5">
-            <h2 class="section-title text-white">Success <span class="text-gold">Stories</span></h2>
-            <p class="text-white opacity-50">Hear from professionals who elevated their careers through our network.</p>
+    <section class="container py-5 my-5 border-top border-secondary border-opacity-25 overflow-hidden">
+        <div class="text-center mb-5 reveal">
+            <h2 class="section-title text-white">Success <span class="text-gold shimmer-text">Stories</span></h2>
+            <p class="text-white opacity-50">Hear from professionals who elevated their careers.</p>
         </div>
 
         <div class="row g-4">
-            <div class="col-lg-4 col-md-6">
-                <div class="review-card">
+            <div class="col-lg-4 col-md-6 reveal slide-up-1">
+                <div class="review-card hover-glow">
                     <div class="text-gold mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
                     <p class="text-white opacity-75 fst-italic mb-4">"Rainbow Jobs completely transformed my career trajectory. The roles they offer are truly exclusive."</p>
                     <div class="d-flex align-items-center">
-                        <div class="review-avatar">A</div>
-                        <div class="ms-3">
-                            <h6 class="text-white fw-bold mb-0">Arjun Menon</h6>
-                            <small class="text-gold">Marketing Director</small>
-                        </div>
+                        <div class="review-avatar bg-gold text-dark fw-bold rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">AM</div>
+                        <div class="ms-3"><h6 class="text-white fw-bold mb-0">Arjun Menon</h6><small class="text-gold">Marketing Director</small></div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="review-card">
+            
+            <div class="col-lg-4 col-md-6 reveal slide-up-2">
+                <div class="review-card hover-glow">
                     <div class="text-gold mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
-                    <p class="text-white opacity-75 fst-italic mb-4">"The level of professionalism is unmatched. They match you perfectly with companies that fit your executive style."</p>
+                    <p class="text-white opacity-75 fst-italic mb-4">"The level of professionalism is unmatched. They match you perfectly with companies that fit your style."</p>
                     <div class="d-flex align-items-center">
-                        <div class="review-avatar">S</div>
-                        <div class="ms-3">
-                            <h6 class="text-white fw-bold mb-0">Sarah Thomas</h6>
-                            <small class="text-gold">Chief of Staff</small>
-                        </div>
+                        <div class="review-avatar bg-gold text-dark fw-bold rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">ST</div>
+                        <div class="ms-3"><h6 class="text-white fw-bold mb-0">Sarah Thomas</h6><small class="text-gold">Chief of Staff</small></div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="review-card">
+
+            <div class="col-lg-4 col-md-6 reveal slide-up-3">
+                <div class="review-card hover-glow">
                     <div class="text-gold mb-3"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
-                    <p class="text-white opacity-75 fst-italic mb-4">"A completely seamless experience from interview prep to final offer negotiation. The best search firm in Kerala."</p>
+                    <p class="text-white opacity-75 fst-italic mb-4">"A completely seamless experience from interview prep to final offer negotiation. Highly recommended."</p>
                     <div class="d-flex align-items-center">
-                        <div class="review-avatar">R</div>
-                        <div class="ms-3">
-                            <h6 class="text-white fw-bold mb-0">Rahul Varma</h6>
-                            <small class="text-gold">Cloud Architect</small>
-                        </div>
+                        <div class="review-avatar bg-gold text-dark fw-bold rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">RV</div>
+                        <div class="ms-3"><h6 class="text-white fw-bold mb-0">Rahul Varma</h6><small class="text-gold">Cloud Architect</small></div>
                     </div>
                 </div>
             </div>
@@ -188,51 +182,59 @@
     </section>
 
     <footer class="footer-area pt-5 pb-3">
-        <div class="container border-top border-secondary border-opacity-25 pt-5">
+        <div class="container border-top border-secondary border-opacity-25 pt-5 reveal">
             <div class="row g-4 mb-5 text-center text-md-start">
+                
                 <div class="col-lg-4 pe-lg-5">
                     <h4 class="logo text-white mb-3">RAINBOW<span class="text-gold">JOBS</span></h4>
-                    <p class="text-white opacity-50 small lh-lg">Providing elite career consultancy and connecting exceptional talent with world-class companies.</p>
+                    <p class="text-white opacity-50 small lh-lg">Providing elite career consultancy and connecting exceptional talent with world-class companies across the globe.</p>
                     <div class="d-flex gap-3 justify-content-center justify-content-md-start mt-4">
-                        <a href="#" class="social-btn"><i class="bi bi-linkedin"></i></a>
-                        <a href="#" class="social-btn"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;"><i class="bi bi-instagram"></i></a>
                     </div>
                 </div>
+                
                 <div class="col-lg-2 col-6">
                     <h6 class="text-white fw-bold text-uppercase mb-4">Company</h6>
                     <ul class="list-unstyled footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">The Collection</a></li>
-                        <li><a href="#">Employers</a></li>
+                        <li class="mb-2"><a href="#" class="text-white opacity-75 text-decoration-none hover-glow">About Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-white opacity-75 text-decoration-none hover-glow">The Collection</a></li>
+                        <li class="mb-2"><a href="#" class="text-white opacity-75 text-decoration-none hover-glow">Employers</a></li>
                     </ul>
                 </div>
+                
                 <div class="col-lg-2 col-6">
                     <h6 class="text-white fw-bold text-uppercase mb-4">Resources</h6>
                     <ul class="list-unstyled footer-links">
-                        <li><a href="#">Career Guide</a></li>
-                        <li><a href="#">Resume Tips</a></li>
-                        <li><a href="#">Salary Insights</a></li>
+                        <li class="mb-2"><a href="#" class="text-white opacity-75 text-decoration-none hover-glow">Career Guide</a></li>
+                        <li class="mb-2"><a href="#" class="text-white opacity-75 text-decoration-none hover-glow">Resume Tips</a></li>
+                        <li class="mb-2"><a href="#" class="text-white opacity-75 text-decoration-none hover-glow">Salary Insights</a></li>
                     </ul>
                 </div>
+                
                 <div class="col-lg-4">
                     <h6 class="text-white fw-bold text-uppercase mb-4">Headquarters</h6>
-                    <p class="text-white opacity-75 small mb-2"><i class="bi bi-geo-alt text-gold me-2"></i> Kozhikode, Kerala</p>
-                    <p class="text-white opacity-75 small mb-2"><i class="bi bi-envelope text-gold me-2"></i> elite@rainbowjobs.in</p>
-                    <p class="text-white opacity-75 small"><i class="bi bi-telephone text-gold me-2"></i> +91 98765 43210</p>
+                    <div class="p-4 rounded-4" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);">
+                        <p class="text-white opacity-75 small mb-3"><i class="bi bi-geo-alt-fill text-gold me-2 fs-5 align-middle"></i> Kozhikode, Kerala, India</p>
+                        <p class="text-white opacity-75 small mb-3"><i class="bi bi-envelope-fill text-gold me-2 fs-5 align-middle"></i> elite@rainbowjobs.in</p>
+                        <p class="text-white opacity-75 small mb-0"><i class="bi bi-telephone-fill text-gold me-2 fs-5 align-middle"></i> +91 98765 43210</p>
+                    </div>
                 </div>
+                
             </div>
+            
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-4 border-top border-secondary border-opacity-25">
                 <p class="text-white opacity-50 small mb-2 mb-md-0">&copy; 2026 RAINBOW JOBS. ALL RIGHTS RESERVED.</p>
                 <div class="d-flex gap-4">
-                    <a href="#" class="text-white opacity-50 small text-decoration-none">Privacy Policy</a>
-                    <a href="#" class="text-white opacity-50 small text-decoration-none">Terms of Service</a>
+                    <a href="#" class="text-white opacity-50 small text-decoration-none hover-glow">Privacy Policy</a>
+                    <a href="#" class="text-white opacity-50 small text-decoration-none hover-glow">Terms of Service</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{% static 'js/script.js' %}?v=30.0"></script>
+    <script src="{% static 'js/script.js' %}?v=9.1"></script>
 </body>
 </html>

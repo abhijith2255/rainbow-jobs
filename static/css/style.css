@@ -1,189 +1,95 @@
-/* =========================================
-   VARIABLES & BASE
-   ========================================= */
+/* ROOT VARIABLES & TYPOGRAPHY */
 :root {
-    --gold: #fbbf24;
-    --navy-dark: #0a101d; /* Matches the bottom of the hero fade */
-    --card-bg: #111827; /* Solid dark slate for job cards */
-    --glass-bg: rgba(255, 255, 255, 0.02);
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --bg-dark: #050505;
+    --text-main: #f8f9fa;
+    --gold-accent: #d4af37;
+    --gold-hover: #f1c40f;
+    --glass-bg: rgba(15, 15, 15, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-body.dark-theme {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--navy-dark);
-    color: #ffffff;
-    overflow-x: hidden;
-}
+body.dark-theme { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+.text-gold { color: var(--gold-accent) !important; }
+.bg-gold { background-color: var(--gold-accent) !important; }
+.brand-font, .hero-title, .logo { font-family: 'Playfair Display', serif; }
+.transition-all { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
 
-.text-gold { color: var(--gold) !important; }
-.logo { font-weight: 800; letter-spacing: 2px; text-decoration: none; }
-.section-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 2.5rem; }
-
-/* Buttons */
-.btn-gold {
-    background-color: var(--gold); color: #000 !important; font-weight: 700; border-radius: 4px;
-    padding: 10px 24px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; transition: 0.3s;
-}
-.btn-gold:hover { background-color: #fff; transform: translateY(-2px); }
-
-/* =========================================
-   NAVBAR (Transparent to Solid on scroll)
-   ========================================= */
-.nav-transparent { padding: 20px 0; transition: all 0.4s ease; background-color: transparent; }
+/* NAVBAR GLASSMORPHISM */
+.nav-transparent { background: transparent; padding: 25px 0; }
 .nav-scrolled {
-    padding: 12px 0; background-color: rgba(10, 16, 29, 0.95);
-    backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass-border);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    padding: 12px 0; border-bottom: 1px solid var(--glass-border); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
-.nav-link { text-transform: uppercase; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; opacity: 0.8; transition: 0.3s; }
-.nav-link:hover { opacity: 1; color: var(--gold) !important; }
+.nav-hover { position: relative; }
+.nav-hover::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background-color: var(--gold-accent); transition: width 0.3s ease; }
+.nav-hover:hover::after { width: 100%; }
+.hover-scale:hover { transform: scale(1.05); }
+.hover-lift:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3); }
 
-/* =========================================
-   HERO SECTION (SMOOTH FADE)
-   ========================================= */
+/* BUTTONS */
+.btn-gold { background: linear-gradient(45deg, #d4af37, #f1c40f); color: #000; font-weight: 700; border: none; border-radius: 8px; letter-spacing: 1px; text-transform: uppercase; transition: 0.4s; }
+.btn-gold:hover { background: linear-gradient(45deg, #f1c40f, #d4af37); box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); transform: translateY(-2px); }
+
+/* HERO SECTION WITH IMAGE */
 .hero-section {
-    position: relative; 
-    margin-top: -80px; padding-top: 80px;
-    background: url('https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1920&q=80') center top/cover no-repeat;
+    position: relative;
+    min-height: 100vh;
+}
+.hero-bg-image {
+    position: absolute; top: 0; left: 0; width: 100%; height: 120%;
+    /* Stunning Corporate Glass Building Image */
+    background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    z-index: 0;
+    will-change: transform;
 }
 .hero-overlay {
-    position: absolute; inset: 0;
-    /* The Magic Fade into dark navy */
-    background: linear-gradient(to bottom, rgba(6, 78, 59, 0.85) 0%, rgba(10, 16, 29, 0.6) 60%, #0a101d 100%);
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 100%);
     z-index: 1;
 }
-.hero-title { font-family: 'Playfair Display', serif; font-size: 4rem; font-weight: 800; line-height: 1.1; letter-spacing: -1px; }
-.hero-title-italic { font-style: italic; }
-.top-label { letter-spacing: 4px; font-size: 0.75rem; font-weight: 600; }
 
-/* Search Box & CEO Card */
-.search-glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); border-radius: 8px; max-width: 550px; }
-.search-glass input::placeholder { color: rgba(255,255,255,0.4); }
-.search-glass input:focus { color: white; }
-.btn-gold-search { background: var(--gold); color: black; font-weight: 700; border-radius: 6px; border: none; transition: 0.3s; }
-.btn-gold-search:hover { background: white; }
+/* SHIMMER TEXT EFFECT */
+.shimmer-text {
+    background: linear-gradient(90deg, #d4af37 0%, #fff 50%, #d4af37 100%);
+    background-size: 200% auto;
+    color: #000;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s linear infinite;
+}
+@keyframes shimmer { to { background-position: 200% center; } }
 
-.ceo-glass-card { background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02)); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 30px; max-width: 420px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-.ceo-avatar { width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+.hero-title-italic { font-style: italic; font-weight: 800; }
+.cursor { animation: blink 1s infinite; color: var(--gold-accent); font-weight: 300;}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-/* =========================================
-   TEXT ANIMATIONS
-   ========================================= */
-.animate-fade-up { animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-.reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+.search-glass { background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); border-radius: 50px; max-width: 500px; }
+
+/* 3D TILT CARD */
+.ceo-glass-card {
+    background: var(--glass-bg); backdrop-filter: blur(25px); border: 1px solid var(--glass-border);
+    padding: 35px; border-radius: 20px; max-width: 400px; transform-style: preserve-3d;
+}
+.ceo-avatar { width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-accent); transform: translateZ(20px); }
+
+/* JOB CARDS */
+.job-card, .review-card { background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px; height: 100%; display: flex; flex-direction: column; }
+.job-category-tag { background: rgba(212, 175, 55, 0.1); padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; color: var(--gold-accent); border: 1px solid rgba(212, 175, 55, 0.3); text-transform: uppercase; letter-spacing: 1px; }
+
+.hover-glow { transition: all 0.4s ease; }
+.hover-glow:hover { transform: translateY(-10px); border-color: rgba(212, 175, 55, 0.6); box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px rgba(212, 175, 55, 0.15); }
+.hover-glow:hover .job-icon-box i { color: var(--gold-accent); transform: scale(1.1); }
+.btn-view-details:hover { color: var(--gold-accent) !important; letter-spacing: 2px; }
+
+/* FILTER BUTTONS */
+.filter-btn { background: transparent; color: var(--text-main); border: 1px solid var(--glass-border); padding: 8px 24px; border-radius: 50px; transition: 0.3s; font-weight: 600; }
+.filter-btn.active, .filter-btn:hover { background: var(--gold-accent); color: #000; border-color: var(--gold-accent); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+
+/* ANIMATIONS */
+.float-animation { animation: float 6s ease-in-out infinite; }
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+
+/* Scroll Reveal Classes */
+.reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
 .reveal.active { opacity: 1; transform: translateY(0); }
-
-/* =========================================
-   JOB SECTION & GRID (NEW SOLID DESIGN)
-   ========================================= */
-.filter-btn { background: transparent; color: rgba(255,255,255,0.6); border: none; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 16px; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
-.filter-btn:hover { color: white; }
-.filter-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
-
-/* The Solid Dark Card */
-.job-card {
-    background-color: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.05); 
-    border-top: 4px solid var(--gold);
-    border-radius: 16px; 
-    height: 100%; padding: 25px;
-    display: flex; flex-direction: column; transition: all 0.3s ease;
-}
-.job-card:hover { 
-    transform: translateY(-5px); 
-    box-shadow: 0 15px 30px rgba(0,0,0,0.5); 
-    border-color: rgba(251, 191, 36, 0.2);
-    border-top: 4px solid var(--gold);
-}
-
-/* Square Gold Icon Box */
-.job-icon-box { 
-    width: 45px; height: 45px; border-radius: 8px;
-    border: 1px solid rgba(251, 191, 36, 0.4); 
-    background: rgba(251, 191, 36, 0.05);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--gold); font-size: 1.2rem; 
-}
-
-/* Pill Category Tag */
-.job-category-tag {
-    border: 1px solid rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.05);
-    color: var(--gold); padding: 4px 12px; border-radius: 50px;
-    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px;
-    text-transform: uppercase; display: flex; align-items: center;
-}
-
-/* Card Typography */
-.job-title { font-weight: 700; font-size: 1.15rem; }
-.job-details p { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
-
-/* Footer area inside card */
-.job-card-footer {
-    margin-top: auto; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px;
-    display: flex; justify-content: space-between; align-items: center;
-}
-.job-salary { font-weight: 800; font-size: 1.2rem; }
-
-/* View Details Button */
-.btn-view-details { 
-    background: transparent; border: 1px solid rgba(255,255,255,0.3); 
-    color: white; padding: 6px 18px; border-radius: 50px; 
-    font-size: 0.8rem; text-decoration: none; transition: 0.3s; 
-}
-.btn-view-details:hover { background: var(--gold); color: black; border-color: var(--gold); }
-
-/* =========================================
-   REVIEWS & FOOTER
-   ========================================= */
-.review-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 30px; height: 100%; transition: 0.3s; }
-.review-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.05); }
-.review-avatar { width: 45px; height: 45px; border-radius: 50%; background: #1e293b; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--gold); border: 1px solid var(--glass-border); }
-
-.footer-area { background-color: #050810; }
-.social-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: 0.3s; }
-.social-btn:hover { background: var(--gold); color: black; }
-.footer-links li { margin-bottom: 12px; }
-.footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
-.footer-links a:hover { color: var(--gold); padding-left: 5px; }
-
-/* =========================================
-   MOBILE RESPONSIVENESS
-   ========================================= */
-/* =========================================
-   MOBILE RESPONSIVENESS & MENU FIX
-   ========================================= */
-@media (max-width: 991px) {
-    /* Navbar & Menu Fixes */
-    .navbar-collapse { background-color: rgba(11, 17, 32, 0.98); padding: 20px; border-radius: 12px; margin-top: 15px; border: 1px solid var(--border-color); text-align: center; backdrop-filter: blur(15px); }
-    .navbar-nav .nav-item { margin-bottom: 15px; width: 100%; }
-    .luxury-dropdown { background-color: transparent !important; border: none !important; box-shadow: none !important; margin-top: 0 !important; padding: 0 !important; }
-    .luxury-dropdown .dropdown-item { justify-content: center; font-size: 1rem; padding: 10px; }
-    .luxury-dropdown .dropdown-item:hover { padding-left: 10px; background-color: transparent !important; color: var(--gold) !important; }
-    .luxury-dropdown .dropdown-divider { border-top: 1px solid rgba(255, 255, 255, 0.1) !important; width: 50%; margin: 10px auto !important; }
-
-    /* HERO SECTION MOBILE FIX (Fixes the overlap and massive height) */
-    .hero-section .min-vh-100 {
-        min-height: auto !important; /* Stops the section from stretching too big */
-        padding-top: 140px !important; /* Safely pushes the text down below the navbar */
-        padding-bottom: 60px !important;
-    }
-}
-
-@media (max-width: 768px) {
-    /* Shrink the giant title slightly for small phone screens */
-    .hero-title { font-size: 3rem; }
-    .hero-section { background-position: center; }
-    
-    /* Adds spacing above the CEO card so it doesn't touch the search bar */
-    .ceo-glass-card { padding: 20px; margin-top: 3rem; max-width: 100%; }
-}
-@media (max-width: 767px) {
-    /* FORCE 1 CARD PER ROW ON MOBILE */
-    #job-container > div {
-        width: 100% !important;
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
-    }
-}

@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class PhoneOTP(models.Model):
     phone_number = models.CharField(max_length=15, unique=True)
@@ -83,3 +85,43 @@ class JobApplication(models.Model):
 
     def __str__(self):
         return f"{self.applicant_name} applied for {self.job.title}"
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    resume = models.FileField(upload_to='resumes/', blank=True, null=True)
+    
+    # --- NEW FIELDS ---
+    dob = models.DateField(blank=True, null=True)
+    gender = models.CharField(max_length=10, choices=[('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')], blank=True)
+    
+    headline = models.CharField(max_length=100, blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    portfolio_link = models.URLField(blank=True, null=True)
+    is_email_verified = models.BooleanField(default=False)
+    is_phone_verified = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
+
+# Make sure this import is at the top of models.py if it isn't already:
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+# Replace your existing signals at the bottom with these:
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    # Safely check if the profile exists before saving
+    if hasattr(instance, 'profile'):
+        instance.profile.save()
+    else:
+        # If it's an old user with no profile, create one for them right now!
+        UserProfile.objects.create(user=instance)

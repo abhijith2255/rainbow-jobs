@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ candidate.first_name }}'s Portfolio | Rainbow Jobs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #ff007a; 
+            --secondary: #00d4ff; 
+            --glass: rgba(15, 15, 20, 0.6);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body { 
+            background: #050505; color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(255, 0, 122, 0.1) 0, transparent 40%), 
+                radial-gradient(at 100% 100%, rgba(0, 212, 255, 0.1) 0, transparent 40%);
+        }
+
+        .blob {
+            position: fixed; width: 500px; height: 500px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            filter: blur(100px); border-radius: 50%; z-index: -1; opacity: 0.15;
+            animation: move 20s infinite alternate;
+        }
+        @keyframes move {
+            from { transform: translate(-10%, -10%) rotate(0deg); }
+            to { transform: translate(100%, 50%) rotate(360deg); }
+        }
+
+        .cyber-card {
+            background: var(--glass);
+            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--border); border-radius: 24px;
+            padding: 40px;
+        }
+
+        .data-label { font-size: 0.75rem; color: var(--secondary); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; display: block; }
+        .data-value { font-size: 1.1rem; color: #fff; font-weight: 600; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        .avatar-box { width: 180px; height: 180px; margin: 0 auto 20px; background: linear-gradient(45deg, var(--primary), var(--secondary)); padding: 4px; border-radius: 40px; }
+        .avatar-img { width: 100%; height: 100%; border-radius: 36px; object-fit: cover; background: #0a0a0a; }
+
+        .btn-hire {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none; color: #fff; font-weight: 700; padding: 16px 30px;
+            border-radius: 16px; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
+            display: inline-block; text-decoration: none; text-align: center;
+        }
+        .btn-hire:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(255, 0, 122, 0.4); color: #fff; }
+        
+        .verified-badge { background: rgba(74, 222, 128, 0.1); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.2); padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="blob"></div>
+
+    <nav class="navbar px-lg-5 py-4 border-bottom border-secondary border-opacity-25" style="background: rgba(0,0,0,0.5); backdrop-filter: blur(10px);">
+        <a class="navbar-brand text-white fs-3 fw-bold" href="{% url 'home' %}">Rainbow<span style="color: var(--secondary);">JOBS</span></a>
+        {% if request.user.is_authenticated and request.user == candidate %}
+            <a href="{% url 'user_profile' %}" class="btn btn-outline-light btn-sm rounded-pill px-4">Edit My Profile</a>
+        {% else %}
+            <a href="{% url 'home' %}" class="btn btn-outline-light btn-sm rounded-pill px-4">Back to Portal</a>
+        {% endif %}
+    </nav>
+
+    <div class="container py-5">
+        <div class="row g-4 justify-content-center">
+            
+            <div class="col-lg-4">
+                <div class="cyber-card text-center position-sticky" style="top: 100px;">
+                    <div class="avatar-box shadow-lg">
+                        {% if candidate.profile.profile_picture %}
+                            <img src="{{ candidate.profile.profile_picture.url }}" class="avatar-img">
+                        {% else %}
+                            <div class="avatar-img d-flex align-items-center justify-content-center">
+                                <i class="bi bi-person-fill display-1 text-white-50"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <h2 class="fw-bold mt-4 mb-1" style="font-family: 'Playfair Display', serif;">{{ candidate.get_full_name|default:candidate.username }}</h2>
+                    <p class="text-info mb-3">{{ candidate.profile.headline|default:"Professional Candidate" }}</p>
+                    
+                    {% if candidate.profile.location %}
+                        <p class="text-white-50 small"><i class="bi bi-geo-alt-fill me-1"></i> {{ candidate.profile.location }}</p>
+                    {% endif %}
+                    
+                    <a href="mailto:{{ candidate.email }}" class="btn-hire w-100 shadow-lg mt-3"><i class="bi bi-envelope-paper-heart me-2"></i> Contact Candidate</a>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="cyber-card mb-4">
+                    <h4 class="fw-bold mb-4 border-bottom border-secondary border-opacity-25 pb-3"><i class="bi bi-person-vcard text-primary me-2"></i> Professional Overview</h4>
+                    
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <span class="data-label">Executive Summary</span>
+                            <div class="data-value" style="font-weight: 400; line-height: 1.6;">{{ candidate.profile.bio|default:"This candidate has not provided a bio yet." }}</div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <span class="data-label">Age</span>
+                            <div class="data-value">
+                                {% if candidate.profile.dob %}
+                                    <script>
+                                        document.write(new Date().getFullYear() - new Date("{{ candidate.profile.dob|date:'Y-m-d' }}").getFullYear() + " Years Old");
+                                    </script>
+                                {% else %}
+                                    Not specified
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <span class="data-label">Verification Status</span>
+                            <div class="data-value border-0">
+                                {% if candidate.profile.is_email_verified or candidate.profile.is_phone_verified %}
+                                    <span class="verified-badge"><i class="bi bi-shield-check me-1"></i> Identity Verified</span>
+                                {% else %}
+                                    <span class="text-white-50 small">Pending Verification</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cyber-card">
+                    <h4 class="fw-bold mb-4 border-bottom border-secondary border-opacity-25 pb-3"><i class="bi bi-link-45deg text-warning me-2"></i> Documentation & Links</h4>
+                    
+                    <div class="row g-4">
+                        {% if candidate.profile.resume %}
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-4" style="background: rgba(0, 212, 255, 0.05); border: 1px solid var(--secondary);">
+                                <i class="bi bi-file-earmark-pdf-fill fs-3 text-secondary d-block mb-2"></i>
+                                <h6 class="fw-bold mb-1">Curriculum Vitae</h6>
+                                <a href="{{ candidate.profile.resume.url }}" target="_blank" class="text-info text-decoration-none small fw-bold">Download / View PDF <i class="bi bi-arrow-up-right"></i></a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if candidate.profile.portfolio_link %}
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-4" style="background: rgba(255, 0, 122, 0.05); border: 1px solid var(--primary);">
+                                <i class="bi bi-globe2 fs-3 text-primary d-block mb-2"></i>
+                                <h6 class="fw-bold mb-1">External Portfolio</h6>
+                                <a href="{{ candidate.profile.portfolio_link }}" target="_blank" class="text-primary text-decoration-none small fw-bold">Visit Website <i class="bi bi-arrow-up-right"></i></a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
