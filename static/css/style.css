@@ -1,9 +1,9 @@
 /* =========================================
-   ULTRA PREMIUM LIGHT & DARK COMBO
+   ULTRA LUXURY HYBRID THEME (Image Rich)
    ========================================= */
 :root {
     --bg-dark: #050505;        
-    --bg-light: #f4f6f9;       
+    --bg-light: #f8f9fa;       
     --text-dark: #111111;
     --text-light: #ffffff;
     --gold-accent: #d4af37;   
@@ -13,11 +13,13 @@
     --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-body.combo-theme { background-color: var(--bg-dark); color: var(--text-light); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+body.hybrid-theme { background-color: var(--bg-dark); color: var(--text-light); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 .text-gold { color: var(--gold-accent) !important; }
 .bg-gold { background-color: var(--gold-accent) !important; }
+.border-gold { border-color: var(--gold-accent) !important; }
 .brand-font, .hero-title, .logo { font-family: 'Playfair Display', serif; }
 .transition-all { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+.tracking-widest { letter-spacing: 2px; }
 
 /* =========================================
    DARK NAVBAR & BUTTONS
@@ -30,11 +32,11 @@ body.combo-theme { background-color: var(--bg-dark); color: var(--text-light); f
 .hover-scale:hover { transform: scale(1.05); }
 .hover-lift:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important; }
 
-.btn-gold { background: linear-gradient(45deg, #d4af37, #f1c40f); color: #000; font-weight: 700; border: none; border-radius: 8px; letter-spacing: 1px; text-transform: uppercase; transition: 0.4s; }
+.btn-gold { background: linear-gradient(45deg, #d4af37, #f1c40f); color: #000; font-weight: 700; border: none; transition: 0.4s; }
 .btn-gold:hover { background: linear-gradient(45deg, #f1c40f, #d4af37); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); transform: translateY(-2px); }
 
 /* =========================================
-   DARK HERO SECTION WITH MASSIVE FADE
+   DARK HERO SECTION (With Particles & Fade)
    ========================================= */
 .hero-section { position: relative; min-height: 100vh; background: var(--bg-dark); }
 .hero-bg-image { 
@@ -44,13 +46,8 @@ body.combo-theme { background-color: var(--bg-dark); color: var(--text-light); f
 }
 @keyframes heroZoom { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
 
-/* Fades the image to pure black over 600px */
 .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.7) 100%); z-index: 1; }
-.hero-bottom-fade {
-    position: absolute; bottom: 0; left: 0; width: 100%; height: 600px;
-    background: linear-gradient(to bottom, transparent 0%, var(--bg-dark) 100%);
-    z-index: 2; pointer-events: none;
-}
+.hero-bottom-fade { position: absolute; bottom: 0; left: 0; width: 100%; height: 400px; background: linear-gradient(to bottom, transparent 0%, var(--bg-light) 100%); z-index: 2; pointer-events: none; }
 
 .shimmer-text { background: linear-gradient(90deg, var(--gold-accent) 0%, #fff 50%, var(--gold-accent) 100%); background-size: 200% auto; color: #fff; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 3s linear infinite; }
 @keyframes shimmer { to { background-position: 200% center; } }
@@ -66,66 +63,57 @@ body.combo-theme { background-color: var(--bg-dark); color: var(--text-light); f
 @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
 
 /* =========================================
-   OVERLAPPING LIGHT ZONE
+   LIGHT ZONE (Marquee, About, Features, Jobs)
    ========================================= */
-/* This brings the light section up over the faded black hero */
 .light-zone { 
-    background-color: var(--bg-light); 
-    color: var(--text-dark); 
-    margin-top: -120px; 
+    background-color: var(--bg-light); color: var(--text-dark); 
     border-radius: 40px 40px 0 0; 
-    box-shadow: 0 -20px 50px rgba(0,0,0,0.4); 
-    padding-top: 20px;
 }
 
-/* MARQUEE */
+/* Marquee */
 .marquee-container { width: 100%; white-space: nowrap; position: relative; }
 .marquee-container::before, .marquee-container::after { content: ''; position: absolute; top: 0; width: 15vw; height: 100%; z-index: 2; }
-.marquee-container::before { left: 0; background: linear-gradient(to right, var(--bg-light), transparent); }
-.marquee-container::after { right: 0; background: linear-gradient(to left, var(--bg-light), transparent); }
+.marquee-container::before { left: 0; background: linear-gradient(to right, #fff, transparent); }
+.marquee-container::after { right: 0; background: linear-gradient(to left, #fff, transparent); }
 .marquee-content { display: inline-block; animation: marqueeScroll 25s linear infinite; }
 @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
+/* About Collage */
+.about-collage { height: 500px; width: 100%; }
+.main-img { position: absolute; right: 0; top: 0; width: 85%; height: 85%; object-fit: cover; z-index: 1; }
+.sub-img { position: absolute; left: 0; bottom: 0; width: 50%; height: 50%; object-fit: cover; z-index: 2; border: 8px solid var(--bg-light); }
+.experience-badge { position: absolute; top: 30%; left: -20px; z-index: 3; width: 140px; height: 140px; animation: float 5s infinite ease-in-out; }
+
+/* Image Background Features */
+.expertise-card { height: 350px; transition: 0.4s ease; cursor: pointer; }
+.expertise-card img { transition: transform 0.6s ease; }
+.expertise-card:hover img { transform: scale(1.05); }
+.card-img-overlay { background: linear-gradient(to bottom, transparent 30%, rgba(5,5,5,0.9) 100%); }
+.icon-gold-circle { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(212, 175, 55, 0.2); color: var(--gold-accent); border: 1px solid var(--gold-accent); font-size: 1.2rem; }
+
 /* =========================================
-   LUXURY JOB CARDS
+   LUXURY IMAGE JOB CARDS
    ========================================= */
-.job-card { border: 1px solid rgba(0,0,0,0.05); }
+.visual-job-card { transition: all 0.4s ease; border: 1px solid rgba(0,0,0,0.05); }
+.visual-job-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px rgba(0,0,0,0.1) !important; border-color: var(--gold-accent); }
 
-/* The hidden gold accent line that appears on hover */
-.card-accent-line {
-    position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-    background: linear-gradient(90deg, var(--gold-accent), var(--gold-hover));
-    opacity: 0; transition: opacity 0.4s ease;
-}
+.card-img-header { height: 180px; overflow: hidden; }
+.overlay-gradient-dark { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(5,5,5,0.6) 0%, transparent 100%); }
 
-.hover-glow { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
-.hover-glow:hover { 
-    transform: translateY(-12px); 
-    box-shadow: 0 30px 60px rgba(212, 175, 55, 0.1) !important; 
-}
-.hover-glow:hover .card-accent-line { opacity: 1; }
-.hover-glow:hover .job-icon { background: var(--gold-accent) !important; color: #000 !important; }
-.hover-glow:hover .btn-apply { background: var(--gold-accent); color: #000; border-color: var(--gold-accent); }
+.btn-apply { transition: 0.3s; }
+.btn-apply:hover { background: var(--gold-accent); color: #000; border-color: var(--gold-accent); }
 
-/* Badges and Formatting */
-.bg-gold-subtle { background-color: rgba(212, 175, 55, 0.15); }
-.text-gold-dark { color: #a67c00; }
-.btn-apply { color: var(--text-dark); border-color: rgba(0,0,0,0.1); }
-
-/* Light Filters */
+/* Filters & Pagination */
 .filter-btn { background: transparent; color: var(--text-dark); border: none; padding: 8px 24px; border-radius: 50px; transition: 0.3s; font-weight: 600; font-size: 0.95rem; }
 .filter-btn.active, .filter-btn:hover { background: var(--bg-dark); color: var(--gold-accent); }
 
-/* Pagination */
 .pagination-custom .page-link { color: var(--text-dark); border: none; margin: 0 5px; border-radius: 12px; font-weight: 700; font-size: 1.1rem; padding: 10px 18px; transition: 0.3s; background: #fff; border: 1px solid rgba(0,0,0,0.05); }
 .pagination-custom .page-item.active .page-link { background: var(--bg-dark); color: var(--gold-accent); border-color: var(--bg-dark); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 .pagination-custom .page-link:hover:not(.active) { background: rgba(212, 175, 55, 0.1); color: var(--gold-accent); transform: translateY(-2px); }
 
 /* =========================================
-   DARK CTA & FOOTER
+   DARK FOOTER & CTA
    ========================================= */
-.footer-area { padding-bottom: 40px; }
-
 .footer-link-glow { color: rgba(255, 255, 255, 0.6); text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; transition: all 0.4s ease; position: relative; }
 .footer-link-glow:hover { color: var(--gold-accent); }
 .footer-link-glow::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--gold-accent); transition: width 0.3s ease; }
@@ -134,11 +122,8 @@ body.combo-theme { background-color: var(--bg-dark); color: var(--text-light); f
 .social-glass { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; font-size: 1.2rem; transition: all 0.4s ease; text-decoration: none; }
 .social-glass:hover { background: var(--gold-accent); color: #000; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3); border-color: var(--gold-accent); }
 
-/* Utilities */
-.tracking-widest { letter-spacing: 4px; }
 .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
 .reveal.active { opacity: 1; transform: translateY(0); }
 .slide-up-1 { transition-delay: 0.1s; }
 .slide-up-2 { transition-delay: 0.2s; }
 .slide-up-3 { transition-delay: 0.3s; }
-.slide-up-4 { transition-delay: 0.4s; }

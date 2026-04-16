@@ -84,18 +84,38 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(typeEffect, 1000);
     }
 
-    // 6. SCROLL REVEAL
+    // 6. SCROLL REVEAL & NUMBER COUNTER
     const revealElements = document.querySelectorAll(".reveal");
+    const counters = document.querySelectorAll(".counter");
+    
     const revealOnScroll = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (!entry.isIntersecting) return;
             entry.target.classList.add("active");
+            
+            if(entry.target.querySelector('.counter')) {
+                counters.forEach(counter => {
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const inc = target / 40; 
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 40);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCount();
+                });
+            }
             observer.unobserve(entry.target);
         });
     }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+    
     revealElements.forEach(el => revealOnScroll.observe(el));
 
-    // 7. GOLD PARTICLE NETWORK
+    // 7. GOLD PARTICLE NETWORK (HERO ONLY)
     const canvas = document.getElementById('particle-canvas');
     if(canvas) {
         const ctx = canvas.getContext('2d');
