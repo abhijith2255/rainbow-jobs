@@ -424,3 +424,45 @@ def public_profile(request, username):
     candidate = get_object_or_404(User, username=username)
     
     return render(request, 'public_profile.html', {'candidate': candidate})
+
+def job_search(request):
+    """Handles the main search bar and the advanced filter offcanvas."""
+    
+    # 1. Grab the data from the URL (e.g., ?q=manager&location=kochi)
+    query = request.GET.get('q', '')
+    location = request.GET.get('location', '')
+    job_type = request.GET.get('type', '')
+    min_salary = request.GET.get('min_salary', '')
+
+    # 2. Start with all active jobs
+    jobs = Job.objects.filter(is_active=True).order_by('-created_at')
+
+    # 3. Apply Filters sequentially
+    if query:
+        # Searches title OR company name for the keyword
+        jobs = jobs.filter(
+            Q(title__icontains=query) | 
+            Q(company_name__icontains=query)
+        )
+    
+    if location:
+        jobs = jobs.filter(location__icontains=location)
+        
+    if job_type:
+        # Assumes you have a 'job_type' field on your model
+        jobs = jobs.filter(job_type__icontains=job_type)
+        
+    if min_salary:
+        try:
+            # Assumes your salary field is an Integer or Float field
+            jobs = jobs.filter(salary__gte=int(min_salary))
+        except ValueError:
+            pass # Ignore if they manipulated the URL with text
+
+    # 4. Send the filtered jobs to a new template
+    context = {
+        'jobs': jobs,
+        'query': query,
+        'result_count': jobs.count()
+    }
+    return render(request, 'search_results.html', context)

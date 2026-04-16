@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tiltCard.addEventListener('mouseenter', () => { tiltCard.style.transition = "none"; });
     }
 
-    // 4. CATEGORY FILTERING
+    // 4. CATEGORY FILTERING (GRID SAFE)
     const filterBtns = document.querySelectorAll(".filter-btn");
     const jobItems = document.querySelectorAll(".job-item");
     const emptyMessage = document.getElementById("empty-job-message");
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(typeEffect, 1000);
     }
 
-    // 6. SCROLL REVEAL & NUMBER COUNTER
+    // 6. SCROLL REVEAL & COUNTERS
     const revealElements = document.querySelectorAll(".reveal");
     const counters = document.querySelectorAll(".counter");
     
@@ -115,12 +115,16 @@ document.addEventListener("DOMContentLoaded", () => {
     
     revealElements.forEach(el => revealOnScroll.observe(el));
 
-    // 7. GOLD PARTICLE NETWORK (HERO ONLY)
+    // 7. GOLD PARTICLE NETWORK (Smart Performance Update)
     const canvas = document.getElementById('particle-canvas');
     if(canvas) {
         const ctx = canvas.getContext('2d');
         let particlesArray;
-        canvas.width = window.innerWidth; canvas.height = document.getElementById('hero').offsetHeight;
+        let animationFrameId;
+        let isHeroVisible = true;
+
+        canvas.width = window.innerWidth; 
+        canvas.height = document.getElementById('hero').offsetHeight;
 
         class Particle {
             constructor(x, y, directionX, directionY, size, color) {
@@ -143,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
                 let directionX = (Math.random() * 1.5) - 0.75;
                 let directionY = (Math.random() * 1.5) - 0.75;
-                let color = 'rgba(212, 175, 55, 0.8)'; // Pure Gold
+                let color = 'rgba(212, 175, 55, 0.8)'; 
                 particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
             }
         }
@@ -158,7 +162,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         }
-        function animate() { requestAnimationFrame(animate); ctx.clearRect(0, 0, canvas.width, canvas.height); for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); } connect(); }
+        function animate() { 
+            if(isHeroVisible) {
+                animationFrameId = requestAnimationFrame(animate); 
+                ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); } 
+                connect(); 
+            }
+        }
+        
+        // Smart Performance: Stop canvas animation when scrolled past hero
+        const heroObserver = new IntersectionObserver((entries) => {
+            isHeroVisible = entries[0].isIntersecting;
+            if (isHeroVisible) { animate(); } 
+            else { cancelAnimationFrame(animationFrameId); }
+        });
+        heroObserver.observe(document.getElementById('hero'));
+
         window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = document.getElementById('hero').offsetHeight; init(); });
         init(); animate();
     }

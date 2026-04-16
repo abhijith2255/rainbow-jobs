@@ -27,4 +27,5 @@ urlpatterns = [
     path('profile/confirm-email-otp/', views.confirm_email_otp, name='profile_confirm_email_otp'),
     # Add this inside your urlpatterns list:
     path('candidate/<str:username>/', views.public_profile, name='public_profile'),
+    path('search/', views.job_search, name='job_search'),
 ]
