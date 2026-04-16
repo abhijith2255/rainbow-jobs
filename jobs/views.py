@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Count, Q
+from django.core.paginator import Paginator # ADD THIS IMPORT
 
 # Import all your models
 from .models import Job, Category, JobApplication, PhoneOTP
@@ -21,22 +22,27 @@ def is_admin(user):
 
 
 
-from django.db.models import Count, Q
+
 
 def home(request):
     """Renders the main Rainbow Jobs landing page with active jobs."""
     
-    # 1. Fetch only ACTIVE jobs
-    active_jobs = Job.objects.filter(is_active=True).order_by('-created_at')
+    # Fetch only ACTIVE jobs
+    job_list = Job.objects.filter(is_active=True).order_by('-created_at')
     
-    # 2. THE FIX: Changed 'job' to 'jobs' in the Count and Q filter
+    # Set up Pagination (Shows 6 jobs per page)
+    paginator = Paginator(job_list, 6) 
+    page_number = request.GET.get('page')
+    page_jobs = paginator.get_page(page_number)
+    
+    # Fetch categories that have at least 1 active job
     categories = Category.objects.annotate(
         active_job_count=Count('jobs', filter=Q(jobs__is_active=True))
     ).filter(active_job_count__gt=0)
     
     context = {
         'categories': categories,
-        'jobs': active_jobs,
+        'jobs': page_jobs,  # We pass the paginated jobs here
     }
     return render(request, 'index.html', context)
 
