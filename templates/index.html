@@ -4,321 +4,335 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rainbow Jobs | Premium Agency</title>
+    <title>Rainbow Jobs | Executive Career Suite</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=25.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=24.0">
 </head>
-<body class="editorial-theme bg-light">
+<body class="combo-theme">
 
-    <nav class="navbar navbar-expand-lg fixed-top transition-all py-3" id="main-navbar">
+    <nav class="navbar navbar-expand-lg fixed-top nav-transparent transition-all" id="main-navbar">
         <div class="container">
-            <a class="navbar-brand logo text-dark fw-bold fs-3" href="#">
-                RAINBOW<span class="text-coral">.</span>
-            </a>
-            <button class="navbar-toggler border-0 shadow-none text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand logo text-white" href="#">RAINBOW<span class="text-gold shimmer-text">JOBS</span></a>
+            <button class="navbar-toggler border-0 shadow-none text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="bi bi-list fs-1"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center gap-lg-4">
-                    <li class="nav-item"><a class="nav-link text-dark fw-semibold link-hover" href="#features">Expertise</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark fw-semibold link-hover" href="#jobs">Opportunities</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark fw-semibold link-hover" href="#employers">For Employers</a></li>
+                <ul class="navbar-nav ms-auto align-items-center gap-lg-3">
+                    <li class="nav-item"><a class="nav-link nav-hover text-white fw-medium" href="#features">Expertise</a></li>
+                    <li class="nav-item"><a class="nav-link nav-hover text-white fw-medium" href="#jobs">Opportunities</a></li>
+                    <li class="nav-item"><a class="nav-link nav-hover text-white fw-medium" href="#employers">For Employers</a></li>
                     
                     {% if user.is_authenticated %}
-                        <li class="nav-item d-none d-lg-block"><div class="vr bg-dark opacity-25" style="height: 24px;"></div></li>
+                        <li class="nav-item d-none d-lg-block"><div class="vr bg-white opacity-25" style="height: 20px;"></div></li>
                         {% if user.is_superuser %}
-                            <li class="nav-item"><a class="nav-link text-coral fw-bold" href="{% url 'admin_dashboard' %}"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link nav-hover text-gold fw-bold" href="{% url 'admin_dashboard' %}"><i class="bi bi-speedometer2 me-1"></i> Command Center</a></li>
                         {% else %}
-                            <li class="nav-item"><a class="nav-link text-dark fw-bold text-capitalize" href="{% url 'user_profile' %}"><i class="bi bi-person-circle me-1"></i> {{ user.username }}</a></li>
+                            <li class="nav-item"><a class="nav-link nav-hover text-white fw-bold text-capitalize" href="{% url 'user_profile' %}"><i class="bi bi-person-circle me-1"></i> {{ user.username }}</a></li>
                         {% endif %}
-                        <li class="nav-item"><a class="nav-link text-danger fw-bold" href="{% url 'logout' %}">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link text-danger fw-bold hover-scale" href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
-                        <li class="nav-item d-none d-lg-block"><div class="vr bg-dark opacity-25" style="height: 24px;"></div></li>
-                        <li class="nav-item"><a class="nav-link text-dark fw-semibold" href="{% url 'login' %}">Login</a></li>
-                        <li class="nav-item"><a class="nav-link text-coral fw-bold" href="{% url 'register' %}">Register</a></li>
+                        <li class="nav-item d-none d-lg-block"><div class="vr bg-white opacity-25" style="height: 20px;"></div></li>
+                        <li class="nav-item"><a class="nav-link nav-hover text-white fw-medium" href="{% url 'login' %}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link text-gold fw-bold hover-scale" href="{% url 'register' %}">Register</a></li>
                     {% endif %}
 
-                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
-                        <a class="btn btn-navy rounded-pill px-4 py-2 fw-bold" href="#">Executive Access</a>
+                    <li class="nav-item ms-lg-4 mt-3 mt-lg-0">
+                        <a class="btn btn-gold rounded-pill px-4 shadow-lg hover-lift" href="#">Executive Access</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="hero-section mt-5 pt-5 pb-5">
-        <div class="container pt-5">
-            <div class="row align-items-center min-vh-75">
-                
-                <div class="col-lg-6 text-center text-lg-start pe-lg-5 animate-fade-up">
-                    <span class="badge bg-coral-light text-coral rounded-pill px-3 py-2 mb-4 fw-bold tracking-widest text-uppercase">The Premier Network</span>
-                    <h1 class="hero-title text-navy display-3 fw-bold mb-4 lh-sm">
-                        Curating <br>
-                        <span class="text-coral brand-font fst-italic">Exceptional</span> Careers.
+    <header class="hero-section position-relative overflow-hidden" id="hero">
+        <div class="hero-bg-image parallax-bg"></div>
+        <div class="hero-overlay"></div>
+        <canvas id="particle-canvas" class="position-absolute top-0 start-0 w-100 h-100 z-1"></canvas>
+        
+        <div class="hero-bottom-fade"></div>
+        
+        <div class="container hero-content position-relative z-2">
+            <div class="row align-items-center min-vh-100 pt-5 pb-5">
+                <div class="col-lg-7 text-center text-lg-start animate-fade-up pt-5 mt-5 pt-lg-0 mt-lg-0 pb-5">
+                    <span class="top-label text-white opacity-75 tracking-wide"><i class="bi bi-globe2 me-2 text-gold"></i>ESTABLISHED 2026</span>
+                    <h1 class="hero-title text-white mt-3 display-3 fw-bold lh-sm">
+                        Your Future, <br>
+                        <span class="text-gold shimmer-text hero-title-italic" id="dynamic-text"></span><span class="cursor text-gold">|</span>
                     </h1>
-                    <p class="hero-subtitle text-muted fs-5 mb-5 fw-light pe-lg-4">
-                        We connect visionary talent with industry-defining organizations. Step into a world of exclusive executive opportunities.
+                    <p class="hero-subtitle text-white opacity-75 mt-4 mb-5 mx-auto mx-lg-0 fs-5 fw-light">
+                        We don't just find jobs; we curate careers. Experience the most exclusive professional network in Kerala.
                     </p>
                     
-                    <div class="search-box bg-white p-2 rounded-pill shadow-sm d-flex align-items-center border">
-                        <i class="bi bi-search text-muted ms-3 me-2 fs-5"></i>
-                        <input type="text" class="form-control border-0 shadow-none bg-transparent" placeholder="Search by role or keyword...">
-                        <button class="btn btn-coral rounded-pill px-4 py-2 fw-bold text-white">Search</button>
-                    </div>
-                    
-                    <div class="mt-5 d-flex align-items-center justify-content-center justify-content-lg-start gap-4 opacity-75">
-                        <div class="d-flex align-items-center gap-2"><i class="bi bi-check-circle-fill text-coral"></i> <span class="small fw-semibold text-navy">Verified Roles</span></div>
-                        <div class="d-flex align-items-center gap-2"><i class="bi bi-check-circle-fill text-coral"></i> <span class="small fw-semibold text-navy">Strict Privacy</span></div>
+                    <div class="search-glass d-flex align-items-center p-2 mx-auto mx-lg-0 shadow-lg">
+                        <i class="bi bi-search text-white opacity-75 ms-3 me-2 fs-5"></i>
+                        <input type="text" class="form-control bg-transparent border-0 text-white shadow-none placeholder-glow" placeholder="Search by industry or role...">
+                        <button class="btn btn-gold rounded-pill px-4 py-2 hover-lift fw-bold">Explore</button>
                     </div>
                 </div>
 
-                <div class="col-lg-6 mt-5 mt-lg-0 d-none d-md-block animate-fade-in-right">
-                    <div class="image-collage position-relative">
-                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80" alt="Corporate" class="img-main rounded-4 shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" alt="Professional" class="img-secondary rounded-4 shadow-lg">
-                        
-                        <div class="floating-stat bg-white p-3 rounded-4 shadow-lg d-flex align-items-center gap-3">
-                            <div class="icon-circle bg-navy text-white"><i class="bi bi-graph-up-arrow"></i></div>
+                <div class="col-lg-5 mt-5 mt-lg-0 animate-fade-in-right pb-5">
+                    <div class="ceo-glass-card mx-auto mx-lg-0 ms-lg-auto float-animation tilt-effect p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=150&h=150&q=80" alt="CEO" class="ceo-avatar rounded-circle shadow me-3" width="70" height="70">
                             <div>
-                                <h4 class="mb-0 fw-bold text-navy">98%</h4>
-                                <span class="small text-muted fw-semibold">Placement Rate</span>
+                                <h5 class="text-white fw-bold mb-0 fs-4">Vibi T.</h5>
+                                <span class="text-gold fw-bold text-uppercase tracking-widest small">Chief Executive</span>
                             </div>
                         </div>
+                        <p class="text-white opacity-75 fst-italic mb-0 lh-lg fs-6">
+                            "True success is the intersection of preparation and opportunity. Our mission is to connect elite talent with unparalleled roles."
+                        </p>
                     </div>
                 </div>
-
             </div>
         </div>
     </header>
 
-    <div class="bg-white py-4 border-top border-bottom">
-        <div class="container-fluid overflow-hidden">
-            <div class="marquee-container">
-                <div class="marquee-content d-flex align-items-center text-muted opacity-50 fs-5 fw-bold tracking-widest">
-                    <span>MICROSOFT</span><span class="mx-5 text-coral">•</span>
-                    <span>AMAZON</span><span class="mx-5 text-coral">•</span>
-                    <span>INFOSYS</span><span class="mx-5 text-coral">•</span>
-                    <span>TCS</span><span class="mx-5 text-coral">•</span>
-                    <span>WIPRO</span><span class="mx-5 text-coral">•</span>
-                    <span>GOOGLE</span><span class="mx-5 text-coral">•</span>
-                    <span>APPLE</span><span class="mx-5 text-coral">•</span>
-                    <span>MICROSOFT</span><span class="mx-5 text-coral">•</span>
-                    <span>AMAZON</span><span class="mx-5 text-coral">•</span>
-                    <span>INFOSYS</span><span class="mx-5 text-coral">•</span>
+    <div class="light-zone position-relative z-3">
+        <div class="container py-5">
+            
+            <div class="container-fluid overflow-hidden mb-5 reveal">
+                <p class="text-center text-muted small fw-bold tracking-widest text-uppercase mb-4 pt-3">Trusted By Global Industry Leaders</p>
+                <div class="marquee-container">
+                    <div class="marquee-content d-flex align-items-center text-dark opacity-50 fs-4 fw-bold tracking-widest">
+                        <span>MICROSOFT</span><i class="bi bi-star-fill mx-5 text-gold fs-6"></i>
+                        <span>AMAZON</span><i class="bi bi-star-fill mx-5 text-gold fs-6"></i>
+                        <span>INFOSYS</span><i class="bi bi-star-fill mx-5 text-gold fs-6"></i>
+                        <span>TCS</span><i class="bi bi-star-fill mx-5 text-gold fs-6"></i>
+                        <span>WIPRO</span><i class="bi bi-star-fill mx-5 text-gold fs-6"></i>
+                        <span>GOOGLE</span><i class="bi bi-star-fill mx-5 text-gold fs-6"></i>
+                        <span>MICROSOFT</span><i class="bi bi-star-fill mx-5 text-gold fs-6"></i>
+                        <span>AMAZON</span><i class="bi bi-star-fill mx-5 text-gold fs-6"></i>
+                        <span>INFOSYS</span><i class="bi bi-star-fill mx-5 text-gold fs-6"></i>
+                    </div>
                 </div>
             </div>
+
+            <section id="features" class="py-5 mt-4">
+                <div class="text-center mb-5 reveal">
+                    <span class="text-gold fw-bold tracking-widest text-uppercase small">The Rainbow Advantage</span>
+                    <h2 class="display-5 fw-bold text-dark mt-2 brand-font">Why Top Talent Chooses Us</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4 reveal slide-up-1">
+                        <div class="light-card h-100 p-5 rounded-4 text-center hover-lift border-0 shadow-sm bg-white">
+                            <div class="feature-icon bg-dark text-gold rounded-circle d-inline-flex align-items-center justify-content-center mb-4 shadow" style="width: 80px; height: 80px; font-size: 2.5rem;">
+                                <i class="bi bi-cpu"></i>
+                            </div>
+                            <h4 class="fw-bold text-dark mb-3 brand-font">AI Matching</h4>
+                            <p class="text-muted mb-0 fw-medium">Our proprietary algorithm matches your unique profile with the perfect corporate culture.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 reveal slide-up-2">
+                        <div class="light-card h-100 p-5 rounded-4 text-center hover-lift border-0 shadow-sm bg-white">
+                            <div class="feature-icon bg-dark text-gold rounded-circle d-inline-flex align-items-center justify-content-center mb-4 shadow" style="width: 80px; height: 80px; font-size: 2.5rem;">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                            <h4 class="fw-bold text-dark mb-3 brand-font">Total Privacy</h4>
+                            <p class="text-muted mb-0 fw-medium">For passive seekers, we guarantee 100% discretion during your entire transition process.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 reveal slide-up-3">
+                        <div class="light-card h-100 p-5 rounded-4 text-center hover-lift border-0 shadow-sm bg-white">
+                            <div class="feature-icon bg-dark text-gold rounded-circle d-inline-flex align-items-center justify-content-center mb-4 shadow" style="width: 80px; height: 80px; font-size: 2.5rem;">
+                                <i class="bi bi-person-lines-fill"></i>
+                            </div>
+                            <h4 class="fw-bold text-dark mb-3 brand-font">1-on-1 Coaching</h4>
+                            <p class="text-muted mb-0 fw-medium">Receive personalized resume overhauls and negotiation tactics from industry veterans.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <main id="jobs" class="py-5 my-5">
+                <div class="row mb-5 align-items-end reveal">
+                    <div class="col-lg-6 text-center text-lg-start">
+                        <span class="text-gold fw-bold tracking-widest text-uppercase small">Live Contracts</span>
+                        <h2 class="display-5 text-dark mb-0 fw-bold mt-2 brand-font">Active Opportunities</h2>
+                    </div>
+                    <div class="col-lg-6 text-center text-lg-end mt-4 mt-lg-0">
+                        <div class="filter-pill d-inline-flex flex-wrap justify-content-center justify-content-lg-end gap-2 p-2 rounded-pill shadow-sm bg-white border">
+                            <button class="filter-btn active" data-filter="all">All Roles</button>
+                            {% for cat in categories %}
+                                <button class="filter-btn" data-filter="{{ cat.name|slugify }}">{{ cat.name|title }}</button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4" id="job-container">
+                    {% for job in jobs %}
+                    <div class="col-12 col-md-6 col-lg-4 job-item {{ job.category.name|slugify|default:'general' }} reveal">
+                        <div class="light-card job-card h-100 p-0 transition-all hover-glow position-relative overflow-hidden bg-white rounded-4 border-0 shadow-sm d-flex flex-column">
+                            
+                            <div class="card-accent-line"></div>
+
+                            <div class="p-4 p-xl-5 d-flex flex-column h-100">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div class="job-icon bg-dark text-gold shadow-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 55px; height: 55px;">
+                                        <i class="bi bi-briefcase-fill fs-4"></i>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        {% if forloop.counter <= 2 and jobs.number == 1 %}
+                                            <span class="badge bg-gold-subtle text-gold-dark border border-warning border-opacity-25 rounded-pill px-3 py-2 fw-bold small shadow-sm"><i class="bi bi-stars"></i> URGENT</span>
+                                        {% endif %}
+                                        <span class="badge bg-light text-dark border px-3 py-2 rounded-pill fw-bold small text-uppercase" style="letter-spacing: 1px;">{{ job.category.name|default:"General" }}</span>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="job-title text-dark fw-bold mb-4 brand-font">{{ job.title|title }}</h3>
+                                
+                                <div class="job-details mb-4">
+                                    <p class="mb-3 fw-medium text-muted d-flex align-items-center fs-6"><i class="bi bi-buildings-fill me-3 text-gold fs-5"></i>{{ job.company_name|default:"Confidential" }}</p>
+                                    <p class="mb-0 fw-medium text-muted d-flex align-items-center fs-6"><i class="bi bi-geo-alt-fill me-3 text-gold fs-5"></i>{{ job.location }}</p>
+                                </div>
+
+                                <div class="salary-box bg-light rounded-3 p-3 mb-4 mt-auto border border-secondary border-opacity-10">
+                                    <p class="text-muted small fw-bold text-uppercase tracking-widest mb-1" style="font-size: 0.65rem;">Compensation</p>
+                                    <p class="text-dark fw-bold fs-5 mb-0">₹{{ job.salary }} <span class="fs-6 fw-medium text-muted">/ month</span></p>
+                                </div>
+
+                                <div class="text-center mt-auto">
+                                    <a href="{% url 'job_detail' job.id %}" class="btn btn-outline-dark rounded-pill py-3 fw-bold w-100 btn-apply transition-all d-flex justify-content-center align-items-center gap-2">
+                                        <span>View Details</span> <i class="bi bi-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-center py-5 text-muted reveal">No opportunities found right now.</div>
+                    {% endfor %}
+                </div>
+
+                {% if jobs.has_other_pages %}
+                <div class="row mt-5 reveal">
+                    <div class="col-12 d-flex justify-content-center mt-4">
+                        <nav aria-label="Job Pagination">
+                            <ul class="pagination pagination-custom shadow-sm">
+                                {% if jobs.has_previous %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ jobs.previous_page_number }}"><i class="bi bi-chevron-left"></i></a></li>
+                                {% endif %}
+                                {% for num in jobs.paginator.page_range %}
+                                    {% if jobs.number == num %}
+                                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if jobs.has_next %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ jobs.next_page_number }}"><i class="bi bi-chevron-right"></i></a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <div id="empty-job-message" class="row mt-4 d-none">
+                    <div class="col-12 text-center py-5">
+                        <div class="light-card mx-auto p-5 shadow-sm bg-white rounded-4 border" style="max-width: 500px;">
+                            <i class="bi bi-emoji-frown display-1 text-muted opacity-50 mb-3 d-block"></i>
+                            <h4 class="text-dark fw-bold mb-3 brand-font">No Roles Available</h4>
+                            <p class="text-muted fw-medium mb-0">We are curating new positions for this sector. Please select a different category.</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <section class="py-5 mb-5 reveal">
+                <div class="text-center mb-5 pt-4">
+                    <h2 class="display-5 fw-bold text-dark brand-font">Success <span class="text-gold">Stories</span></h2>
+                    <p class="text-muted fs-5">Hear from professionals who elevated their careers.</p>
+                </div>
+                <div class="row g-4 px-lg-4 pb-4">
+                    <div class="col-lg-4 col-md-6 reveal slide-up-1">
+                        <div class="light-card review-card p-4 p-xl-5 hover-lift h-100 bg-white rounded-4 border-0 shadow-sm d-flex flex-column">
+                            <div class="text-gold mb-3 fs-5"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                            <p class="text-dark fw-medium fst-italic mb-4 fs-6 lh-lg opacity-75">"Rainbow Jobs completely transformed my career trajectory. The roles they offer are truly exclusive."</p>
+                            <div class="d-flex align-items-center mt-auto border-top pt-4">
+                                <div class="review-avatar bg-dark text-gold fw-bold rounded-circle d-flex align-items-center justify-content-center shadow" style="width: 50px; height: 50px; font-size: 1.2rem;">AM</div>
+                                <div class="ms-3"><h6 class="text-dark fw-bold mb-0 fs-6">Arjun Menon</h6><small class="text-gold fw-bold tracking-widest text-uppercase" style="font-size: 0.65rem;">Marketing Director</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 reveal slide-up-2">
+                        <div class="light-card review-card p-4 p-xl-5 hover-lift h-100 bg-white rounded-4 border-0 shadow-sm d-flex flex-column">
+                            <div class="text-gold mb-3 fs-5"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                            <p class="text-dark fw-medium fst-italic mb-4 fs-6 lh-lg opacity-75">"The level of professionalism is unmatched. They match you perfectly with companies that fit your style."</p>
+                            <div class="d-flex align-items-center mt-auto border-top pt-4">
+                                <div class="review-avatar bg-dark text-gold fw-bold rounded-circle d-flex align-items-center justify-content-center shadow" style="width: 50px; height: 50px; font-size: 1.2rem;">ST</div>
+                                <div class="ms-3"><h6 class="text-dark fw-bold mb-0 fs-6">Sarah Thomas</h6><small class="text-gold fw-bold tracking-widest text-uppercase" style="font-size: 0.65rem;">Chief of Staff</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 reveal slide-up-3">
+                        <div class="light-card review-card p-4 p-xl-5 hover-lift h-100 bg-white rounded-4 border-0 shadow-sm d-flex flex-column">
+                            <div class="text-gold mb-3 fs-5"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                            <p class="text-dark fw-medium fst-italic mb-4 fs-6 lh-lg opacity-75">"A completely seamless experience from interview prep to final offer negotiation. Highly recommended."</p>
+                            <div class="d-flex align-items-center mt-auto border-top pt-4">
+                                <div class="review-avatar bg-dark text-gold fw-bold rounded-circle d-flex align-items-center justify-content-center shadow" style="width: 50px; height: 50px; font-size: 1.2rem;">RV</div>
+                                <div class="ms-3"><h6 class="text-dark fw-bold mb-0 fs-6">Rahul Varma</h6><small class="text-gold fw-bold tracking-widest text-uppercase" style="font-size: 0.65rem;">Cloud Architect</small></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 
-    <section id="features" class="py-5 my-5">
-        <div class="container">
-            <div class="row align-items-center g-5 reveal">
-                <div class="col-lg-5">
-                    <h2 class="display-5 fw-bold text-navy mb-4">Elevate your hiring standard.</h2>
-                    <p class="text-muted fs-5 mb-4 lh-lg">We combine deep industry knowledge with AI-driven insights to curate perfect matches between elite professionals and visionary companies.</p>
-                    <a href="#" class="btn btn-outline-navy rounded-pill px-4 py-2 fw-bold">Discover Our Method <i class="bi bi-arrow-right ms-2"></i></a>
-                </div>
-                <div class="col-lg-7">
-                    <div class="row g-4">
-                        <div class="col-sm-6">
-                            <div class="feature-img-card rounded-4 overflow-hidden position-relative shadow-sm mb-4 group-hover">
-                                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=500&q=80" alt="Team" class="img-fluid w-100 object-fit-cover" style="height: 250px;">
-                                <div class="feature-overlay p-4 d-flex flex-column justify-content-end">
-                                    <h4 class="text-white fw-bold mb-0">Executive Search</h4>
-                                </div>
-                            </div>
-                            <div class="feature-img-card rounded-4 overflow-hidden position-relative shadow-sm group-hover">
-                                <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=500&q=80" alt="Tech" class="img-fluid w-100 object-fit-cover" style="height: 200px;">
-                                <div class="feature-overlay p-4 d-flex flex-column justify-content-end">
-                                    <h4 class="text-white fw-bold mb-0">Tech Placements</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 pt-sm-4">
-                            <div class="feature-img-card rounded-4 overflow-hidden position-relative shadow-sm group-hover">
-                                <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee3c?auto=format&fit=crop&w=500&q=80" alt="Coaching" class="img-fluid w-100 object-fit-cover" style="height: 474px;">
-                                <div class="feature-overlay p-4 d-flex flex-column justify-content-end">
-                                    <h4 class="text-white fw-bold mb-0">1-on-1 Coaching</h4>
-                                    <p class="text-white opacity-75 small mb-0 mt-2">Personalized career trajectory planning.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <main id="jobs" class="bg-white py-5 border-top border-bottom">
-        <div class="container py-5">
-            
-            <div class="row mb-5 align-items-end reveal">
-                <div class="col-lg-6 text-center text-lg-start">
-                    <span class="text-coral fw-bold tracking-widest text-uppercase small">Live Contracts</span>
-                    <h2 class="display-5 text-navy mb-0 fw-bold mt-2">Active Opportunities</h2>
-                </div>
-                <div class="col-lg-6 text-center text-lg-end mt-4 mt-lg-0">
-                    <div class="filter-pill d-inline-flex flex-wrap justify-content-center justify-content-lg-end gap-2 p-2 rounded-pill bg-light border">
-                        <button class="filter-btn active" data-filter="all">All Roles</button>
-                        {% for cat in categories %}
-                            <button class="filter-btn" data-filter="{{ cat.name|slugify }}">{{ cat.name|title }}</button>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row g-4" id="job-container">
-                {% for job in jobs %}
-                <div class="col-12 col-md-6 col-lg-4 job-item {{ job.category.name|slugify|default:'general' }} reveal">
-                    <div class="card visual-job-card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-                        
-                        <div class="card-img-header position-relative">
-                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Job Cover" class="w-100 object-fit-cover" style="height: 180px;">
-                            <div class="overlay-gradient"></div>
-                            
-                            <div class="position-absolute top-0 w-100 p-3 d-flex justify-content-between align-items-start z-2">
-                                <span class="badge bg-white text-navy px-3 py-2 rounded-pill fw-bold shadow-sm">{{ job.category.name|title|default:"General" }}</span>
-                                {% if forloop.counter <= 2 and jobs.number == 1 %}
-                                    <span class="badge bg-coral text-white px-3 py-2 rounded-pill fw-bold shadow-sm"><i class="bi bi-lightning-fill"></i> Urgent</span>
-                                {% endif %}
-                            </div>
-                        </div>
-
-                        <div class="card-body p-4 d-flex flex-column bg-white">
-                            <h4 class="job-title text-navy fw-bold mb-3 brand-font">{{ job.title|title }}</h4>
-                            
-                            <div class="job-details text-muted mb-4">
-                                <p class="mb-2 fw-medium"><i class="bi bi-buildings me-2 text-coral"></i>{{ job.company_name|default:"Confidential" }}</p>
-                                <p class="mb-0 fw-medium"><i class="bi bi-geo-alt me-2 text-coral"></i>{{ job.location }}</p>
-                            </div>
-
-                            <div class="mt-auto border-top pt-3 d-flex justify-content-between align-items-center">
-                                <div>
-                                    <p class="text-muted small text-uppercase tracking-widest mb-0" style="font-size: 0.65rem;">Salary</p>
-                                    <p class="text-navy fw-bold fs-5 mb-0">₹{{ job.salary }}</p>
-                                </div>
-                                <a href="{% url 'job_detail' job.id %}" class="btn btn-light rounded-circle shadow-sm btn-icon transition-all" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
-                                    <i class="bi bi-arrow-right text-navy fs-5"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% empty %}
-                <div class="col-12 text-center py-5 text-muted reveal">No opportunities found right now.</div>
-                {% endfor %}
-            </div>
-
-            {% if jobs.has_other_pages %}
-            <div class="row mt-5 reveal">
-                <div class="col-12 d-flex justify-content-center mt-2">
-                    <nav aria-label="Job Pagination">
-                        <ul class="pagination pagination-editorial shadow-sm">
-                            {% if jobs.has_previous %}
-                                <li class="page-item"><a class="page-link" href="?page={{ jobs.previous_page_number }}"><i class="bi bi-chevron-left"></i></a></li>
-                            {% endif %}
-                            {% for num in jobs.paginator.page_range %}
-                                {% if jobs.number == num %}
-                                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-                                {% else %}
-                                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                                {% endif %}
-                            {% endfor %}
-                            {% if jobs.has_next %}
-                                <li class="page-item"><a class="page-link" href="?page={{ jobs.next_page_number }}"><i class="bi bi-chevron-right"></i></a></li>
-                            {% endif %}
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            {% endif %}
-            
-            <div id="empty-job-message" class="row mt-4 d-none">
-                <div class="col-12 text-center py-5">
-                    <div class="bg-light rounded-4 p-5 mx-auto border" style="max-width: 500px;">
-                        <i class="bi bi-search display-1 text-muted opacity-50 mb-3 d-block"></i>
-                        <h4 class="text-navy fw-bold mb-3 brand-font">No Roles Available</h4>
-                        <p class="text-muted fw-medium mb-0">We are curating new positions for this sector. Please select a different category.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <section class="parallax-banner position-relative py-5 my-5 reveal" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80'); background-attachment: fixed; background-size: cover; background-position: center;">
-        <div class="position-absolute top-0 start-0 w-100 h-100 bg-navy opacity-75"></div>
-        <div class="container position-relative z-2 py-5">
-            <div class="row g-4 text-center">
-                <div class="col-6 col-md-3">
-                    <h2 class="display-3 fw-bold text-white mb-0"><span class="counter" data-target="15">0</span>k+</h2>
-                    <p class="text-coral fw-bold tracking-widest text-uppercase small mb-0 mt-2">Careers Launched</p>
-                </div>
-                <div class="col-6 col-md-3">
-                    <h2 class="display-3 fw-bold text-white mb-0"><span class="counter" data-target="500">0</span>+</h2>
-                    <p class="text-coral fw-bold tracking-widest text-uppercase small mb-0 mt-2">Corporate Partners</p>
-                </div>
-                <div class="col-6 col-md-3">
-                    <h2 class="display-3 fw-bold text-white mb-0"><span class="counter" data-target="98">0</span>%</h2>
-                    <p class="text-coral fw-bold tracking-widest text-uppercase small mb-0 mt-2">Placement Rate</p>
-                </div>
-                <div class="col-6 col-md-3">
-                    <h2 class="display-3 fw-bold text-white mb-0"><span class="counter" data-target="24">0</span>/7</h2>
-                    <p class="text-coral fw-bold tracking-widest text-uppercase small mb-0 mt-2">Expert Support</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-navy pt-5 pb-3">
+    <section id="employers" class="cta-section position-relative z-2 bg-dark">
         <div class="container py-5 reveal">
-            <div class="row justify-content-between g-5">
-                
-                <div class="col-lg-5">
-                    <h2 class="logo text-white fw-bold mb-4">RAINBOW<span class="text-coral">.</span></h2>
-                    <p class="text-white opacity-50 fw-light lh-lg pe-lg-4">
-                        The definitive professional network for elite talent and world-class organizations. Elevate your hiring standard today.
-                    </p>
-                    <div class="d-flex gap-3 mt-4">
-                        <a href="#" class="social-circle-outline"><i class="bi bi-linkedin"></i></a>
-                        <a href="#" class="social-circle-outline"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="social-circle-outline"><i class="bi bi-instagram"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-6">
-                    <h6 class="text-white fw-bold tracking-widest text-uppercase small mb-4">Company</h6>
-                    <ul class="list-unstyled footer-links">
-                        <li class="mb-3"><a href="#" class="text-white opacity-50 text-decoration-none transition-all hover-white">About Us</a></li>
-                        <li class="mb-3"><a href="#" class="text-white opacity-50 text-decoration-none transition-all hover-white">Expertise</a></li>
-                        <li class="mb-3"><a href="#" class="text-white opacity-50 text-decoration-none transition-all hover-white">Success Stories</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-4">
-                    <h6 class="text-white fw-bold tracking-widest text-uppercase small mb-4">Headquarters</h6>
-                    <div class="bg-white bg-opacity-10 p-4 rounded-4 border border-white border-opacity-10">
-                        <p class="text-white fw-medium mb-3 d-flex align-items-center"><i class="bi bi-geo-alt text-coral me-3 fs-5"></i> Kozhikode, Kerala, India</p>
-                        <p class="text-white fw-medium mb-3 d-flex align-items-center"><i class="bi bi-envelope text-coral me-3 fs-5"></i> elite@rainbowjobs.in</p>
-                        <p class="text-white fw-medium mb-0 d-flex align-items-center"><i class="bi bi-telephone text-coral me-3 fs-5"></i> +91 98765 43210</p>
+            <div class="row justify-content-center text-center py-5">
+                <div class="col-lg-8 border border-secondary border-opacity-25 rounded-5 p-5 shadow-lg position-relative overflow-hidden" style="background: rgba(255,255,255,0.02);">
+                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, transparent 70%);"></div>
+                    <div class="position-relative z-2">
+                        <h2 class="display-5 fw-bold text-white mb-4 brand-font">Looking to Hire Top Talent?</h2>
+                        <p class="lead text-white opacity-75 mb-5">Join hundreds of companies that trust Rainbow Jobs to build their executive teams. Get access to our exclusive, pre-vetted talent pool.</p>
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <a href="#" class="btn btn-gold btn-lg rounded-pill px-5 fw-bold text-dark hover-scale shadow">Start Hiring</a>
+                            <a href="#" class="btn btn-outline-light btn-lg rounded-pill px-5 fw-bold hover-scale">Learn More</a>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-5 mt-5 border-top border-white border-opacity-10">
-                <p class="text-white opacity-50 small mb-2 mb-md-0 tracking-widest text-uppercase fw-bold">&copy; 2026 RAINBOW JOBS.</p>
-                <div class="d-flex gap-4">
-                    <a href="#" class="text-white opacity-50 small fw-bold text-decoration-none hover-white">Privacy</a>
-                    <a href="#" class="text-white opacity-50 small fw-bold text-decoration-none hover-white">Terms</a>
+    <footer class="footer-area position-relative z-2 bg-dark border-top border-white border-opacity-10">
+        <div class="container py-5">
+            <div class="row justify-content-center text-center g-5">
+                <div class="col-lg-8 reveal">
+                    <h2 class="logo text-white mb-4 fw-bold display-5">RAINBOW<span class="text-gold ms-1">JOBS</span></h2>
+                    <p class="text-white opacity-50 fw-light mx-auto mb-5 fs-6" style="max-width: 600px;">
+                        The definitive professional network for elite talent and world-class organizations in Kerala and beyond.
+                    </p>
+                    <div class="d-flex flex-wrap justify-content-center gap-4 mb-5">
+                        <a href="#" class="footer-link-glow">The Network</a>
+                        <a href="#" class="footer-link-glow">About Us</a>
+                        <a href="#" class="footer-link-glow">Expertise</a>
+                        <a href="#" class="footer-link-glow">Contact HQ</a>
+                    </div>
+                    <div class="d-flex justify-content-center gap-4">
+                        <a href="#" class="social-glass"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="social-glass"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-glass"><i class="bi bi-instagram"></i></a>
+                    </div>
                 </div>
+            </div>
+            <div class="text-center pt-5 mt-5 border-top border-white border-opacity-10 reveal">
+                <p class="text-white opacity-50 small mb-0 tracking-widest text-uppercase fw-bold">
+                    &copy; 2026 RAINBOW JOBS PROTOCOL. ALL RIGHTS RESERVED.
+                </p>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{% static 'js/script.js' %}?v=25.0"></script>
+    <script src="{% static 'js/script.js' %}?v=24.0"></script>
 </body>
 </html>

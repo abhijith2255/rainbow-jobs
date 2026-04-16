@@ -1,111 +1,144 @@
 /* =========================================
-   MODERN EDITORIAL THEME (IMAGE RICH)
+   ULTRA PREMIUM LIGHT & DARK COMBO
    ========================================= */
 :root {
-    --c-navy: #0A1128;      /* Deep luxurious blue/black */
-    --c-coral: #FF5A5F;     /* Vibrant coral accent */
-    --c-coral-light: rgba(255, 90, 95, 0.1);
-    --bg-light: #F7F9FC;
+    --bg-dark: #050505;        
+    --bg-light: #f4f6f9;       
+    --text-dark: #111111;
+    --text-light: #ffffff;
+    --gold-accent: #d4af37;   
+    --gold-hover: #f1c40f;
+    
+    --glass-bg: rgba(15, 15, 15, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-body.editorial-theme { 
-    background-color: var(--bg-light); 
-    color: #333; 
-    font-family: 'Plus Jakarta Sans', sans-serif; 
-    overflow-x: hidden; 
-}
-.text-navy { color: var(--c-navy) !important; }
-.bg-navy { background-color: var(--c-navy) !important; }
-.text-coral { color: var(--c-coral) !important; }
-.bg-coral { background-color: var(--c-coral) !important; }
-.bg-coral-light { background-color: var(--c-coral-light) !important; }
-
+body.combo-theme { background-color: var(--bg-dark); color: var(--text-light); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+.text-gold { color: var(--gold-accent) !important; }
+.bg-gold { background-color: var(--gold-accent) !important; }
 .brand-font, .hero-title, .logo { font-family: 'Playfair Display', serif; }
-.tracking-widest { letter-spacing: 2px; }
 .transition-all { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
 
 /* =========================================
-   NAVBAR (SOLID LIGHT)
+   DARK NAVBAR & BUTTONS
    ========================================= */
-#main-navbar { background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-.link-hover { position: relative; opacity: 0.7; transition: 0.3s; }
-.link-hover:hover { opacity: 1; color: var(--c-coral) !important; }
+.nav-transparent { background: transparent; padding: 25px 0; }
+.nav-scrolled { background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px); padding: 12px 0; border-bottom: 1px solid var(--glass-border); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8); z-index: 1030;}
+.nav-hover { position: relative; }
+.nav-hover::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background-color: var(--gold-accent); transition: width 0.3s ease; }
+.nav-hover:hover::after { width: 100%; }
+.hover-scale:hover { transform: scale(1.05); }
+.hover-lift:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important; }
 
-.btn-navy { background: var(--c-navy); color: #fff; border: 1px solid var(--c-navy); transition: 0.3s; }
-.btn-navy:hover { background: transparent; color: var(--c-navy); }
-
-.btn-coral { background: var(--c-coral); color: #fff; border: none; transition: 0.3s; }
-.btn-coral:hover { background: #e04a4f; color: #fff; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(255, 90, 95, 0.2); }
-
-.btn-outline-navy { border: 2px solid var(--c-navy); color: var(--c-navy); transition: 0.3s; font-weight: 600; }
-.btn-outline-navy:hover { background: var(--c-navy); color: #fff; }
+.btn-gold { background: linear-gradient(45deg, #d4af37, #f1c40f); color: #000; font-weight: 700; border: none; border-radius: 8px; letter-spacing: 1px; text-transform: uppercase; transition: 0.4s; }
+.btn-gold:hover { background: linear-gradient(45deg, #f1c40f, #d4af37); color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); transform: translateY(-2px); }
 
 /* =========================================
-   IMAGE-RICH HERO SECTION
+   DARK HERO SECTION WITH MASSIVE FADE
    ========================================= */
-.hero-section { background-color: var(--bg-light); position: relative; }
-.search-box { max-width: 500px; }
-.search-box input:focus { outline: none; box-shadow: none; }
+.hero-section { position: relative; min-height: 100vh; background: var(--bg-dark); }
+.hero-bg-image { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 120%; 
+    background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; 
+    z-index: 0; will-change: transform; animation: heroZoom 30s infinite alternate ease-in-out;
+}
+@keyframes heroZoom { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
 
-/* Image Collage in Hero */
-.image-collage { height: 500px; width: 100%; }
-.img-main { position: absolute; right: 0; top: 0; width: 80%; height: 80%; object-fit: cover; z-index: 1; }
-.img-secondary { position: absolute; left: 0; bottom: 0; width: 55%; height: 55%; object-fit: cover; z-index: 2; border: 8px solid var(--bg-light); }
-.floating-stat { position: absolute; bottom: 20%; right: -20px; z-index: 3; animation: floatY 6s infinite ease-in-out; }
-.icon-circle { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+/* Fades the image to pure black over 600px */
+.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.7) 100%); z-index: 1; }
+.hero-bottom-fade {
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 600px;
+    background: linear-gradient(to bottom, transparent 0%, var(--bg-dark) 100%);
+    z-index: 2; pointer-events: none;
+}
 
-@keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+.shimmer-text { background: linear-gradient(90deg, var(--gold-accent) 0%, #fff 50%, var(--gold-accent) 100%); background-size: 200% auto; color: #fff; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 3s linear infinite; }
+@keyframes shimmer { to { background-position: 200% center; } }
+.hero-title-italic { font-style: italic; font-weight: 800; }
+.cursor { animation: blink 1s infinite; font-weight: 300;}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.search-glass { background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); border-radius: 50px; max-width: 500px; }
+.placeholder-glow::placeholder { color: rgba(255,255,255,0.6); }
+.ceo-glass-card { background: var(--glass-bg); backdrop-filter: blur(25px); border: 1px solid var(--glass-border); border-radius: 20px; max-width: 400px; transform-style: preserve-3d; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+
+.float-animation { animation: float 6s ease-in-out infinite; }
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
 
 /* =========================================
-   MARQUEE (CLEAN TEXT)
+   OVERLAPPING LIGHT ZONE
    ========================================= */
+/* This brings the light section up over the faded black hero */
+.light-zone { 
+    background-color: var(--bg-light); 
+    color: var(--text-dark); 
+    margin-top: -120px; 
+    border-radius: 40px 40px 0 0; 
+    box-shadow: 0 -20px 50px rgba(0,0,0,0.4); 
+    padding-top: 20px;
+}
+
+/* MARQUEE */
 .marquee-container { width: 100%; white-space: nowrap; position: relative; }
-.marquee-container::before, .marquee-container::after { content: ''; position: absolute; top: 0; width: 100px; height: 100%; z-index: 2; }
-.marquee-container::before { left: 0; background: linear-gradient(to right, #fff, transparent); }
-.marquee-container::after { right: 0; background: linear-gradient(to left, #fff, transparent); }
+.marquee-container::before, .marquee-container::after { content: ''; position: absolute; top: 0; width: 15vw; height: 100%; z-index: 2; }
+.marquee-container::before { left: 0; background: linear-gradient(to right, var(--bg-light), transparent); }
+.marquee-container::after { right: 0; background: linear-gradient(to left, var(--bg-light), transparent); }
 .marquee-content { display: inline-block; animation: marqueeScroll 25s linear infinite; }
 @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
 /* =========================================
-   IMAGE GRID FEATURES
+   LUXURY JOB CARDS
    ========================================= */
-.feature-img-card { transition: 0.4s ease; cursor: pointer; }
-.feature-img-card img { transition: transform 0.6s ease; }
-.group-hover:hover img { transform: scale(1.05); }
-.feature-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent 40%, rgba(10, 17, 40, 0.9) 100%); }
+.job-card { border: 1px solid rgba(0,0,0,0.05); }
 
-/* =========================================
-   VISUAL JOB CARDS (Images Inside Cards)
-   ========================================= */
-.visual-job-card { transition: all 0.4s ease; border: 1px solid rgba(0,0,0,0.05); }
-.visual-job-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08) !important; }
+/* The hidden gold accent line that appears on hover */
+.card-accent-line {
+    position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+    background: linear-gradient(90deg, var(--gold-accent), var(--gold-hover));
+    opacity: 0; transition: opacity 0.4s ease;
+}
 
-.card-img-header { height: 180px; overflow: hidden; }
-.overlay-gradient { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(10,17,40,0.4) 0%, transparent 100%); }
+.hover-glow { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+.hover-glow:hover { 
+    transform: translateY(-12px); 
+    box-shadow: 0 30px 60px rgba(212, 175, 55, 0.1) !important; 
+}
+.hover-glow:hover .card-accent-line { opacity: 1; }
+.hover-glow:hover .job-icon { background: var(--gold-accent) !important; color: #000 !important; }
+.hover-glow:hover .btn-apply { background: var(--gold-accent); color: #000; border-color: var(--gold-accent); }
 
-.btn-icon:hover { background: var(--c-navy) !important; }
-.btn-icon:hover i { color: #fff !important; }
+/* Badges and Formatting */
+.bg-gold-subtle { background-color: rgba(212, 175, 55, 0.15); }
+.text-gold-dark { color: #a67c00; }
+.btn-apply { color: var(--text-dark); border-color: rgba(0,0,0,0.1); }
 
 /* Light Filters */
-.filter-btn { background: transparent; color: var(--c-navy); border: none; padding: 8px 24px; border-radius: 50px; transition: 0.3s; font-weight: 700; font-size: 0.95rem; }
-.filter-btn.active, .filter-btn:hover { background: var(--c-navy); color: #fff; }
+.filter-btn { background: transparent; color: var(--text-dark); border: none; padding: 8px 24px; border-radius: 50px; transition: 0.3s; font-weight: 600; font-size: 0.95rem; }
+.filter-btn.active, .filter-btn:hover { background: var(--bg-dark); color: var(--gold-accent); }
 
-/* Editorial Pagination */
-.pagination-editorial .page-link { color: var(--c-navy); border: none; margin: 0 5px; border-radius: 12px; font-weight: 700; font-size: 1.1rem; padding: 10px 18px; transition: 0.3s; background: #fff; border: 1px solid rgba(0,0,0,0.05); }
-.pagination-editorial .page-item.active .page-link { background: var(--c-navy); color: #fff; box-shadow: 0 5px 15px rgba(10, 17, 40, 0.3); }
-.pagination-editorial .page-link:hover:not(.active) { background: var(--c-coral-light); color: var(--c-coral); }
+/* Pagination */
+.pagination-custom .page-link { color: var(--text-dark); border: none; margin: 0 5px; border-radius: 12px; font-weight: 700; font-size: 1.1rem; padding: 10px 18px; transition: 0.3s; background: #fff; border: 1px solid rgba(0,0,0,0.05); }
+.pagination-custom .page-item.active .page-link { background: var(--bg-dark); color: var(--gold-accent); border-color: var(--bg-dark); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.pagination-custom .page-link:hover:not(.active) { background: rgba(212, 175, 55, 0.1); color: var(--gold-accent); transform: translateY(-2px); }
 
 /* =========================================
-   FOOTER
+   DARK CTA & FOOTER
    ========================================= */
-.social-circle-outline { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid rgba(255, 255, 255, 0.2); color: white; font-size: 1.2rem; transition: all 0.3s ease; text-decoration: none; }
-.social-circle-outline:hover { background: var(--c-coral); border-color: var(--c-coral); color: #fff; transform: translateY(-5px); }
+.footer-area { padding-bottom: 40px; }
 
-.hover-white:hover { color: white !important; opacity: 1 !important; }
+.footer-link-glow { color: rgba(255, 255, 255, 0.6); text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; transition: all 0.4s ease; position: relative; }
+.footer-link-glow:hover { color: var(--gold-accent); }
+.footer-link-glow::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--gold-accent); transition: width 0.3s ease; }
+.footer-link-glow:hover::after { width: 100%; }
+
+.social-glass { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: white; font-size: 1.2rem; transition: all 0.4s ease; text-decoration: none; }
+.social-glass:hover { background: var(--gold-accent); color: #000; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3); border-color: var(--gold-accent); }
 
 /* Utilities */
+.tracking-widest { letter-spacing: 4px; }
 .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
 .reveal.active { opacity: 1; transform: translateY(0); }
 .slide-up-1 { transition-delay: 0.1s; }
 .slide-up-2 { transition-delay: 0.2s; }
 .slide-up-3 { transition-delay: 0.3s; }
+.slide-up-4 { transition-delay: 0.4s; }
