@@ -20,23 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 3. 3D TILT EFFECT
-    const tiltCard = document.querySelector('.tilt-effect');
-    if(tiltCard) {
-        tiltCard.addEventListener('mousemove', (e) => {
-            const rect = tiltCard.getBoundingClientRect();
-            const rotateX = (((e.clientY - rect.top) - rect.height / 2) / (rect.height / 2)) * -10;
-            const rotateY = (((e.clientX - rect.left) - rect.width / 2) / (rect.width / 2)) * 10;
-            tiltCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        });
-        tiltCard.addEventListener('mouseleave', () => {
-            tiltCard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-            tiltCard.style.transition = "transform 0.5s ease";
-        });
-        tiltCard.addEventListener('mouseenter', () => { tiltCard.style.transition = "none"; });
-    }
-
-    // 4. CATEGORY FILTERING (GRID SAFE)
+    // 3. CATEGORY FILTERING
     const filterBtns = document.querySelectorAll(".filter-btn");
     const jobItems = document.querySelectorAll(".job-item");
     const emptyMessage = document.getElementById("empty-job-message");
@@ -54,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     visibleCount++;
                     setTimeout(() => { item.style.opacity = "1"; item.style.transform = "scale(1)"; }, 50);
                 } else {
-                    item.style.opacity = "0"; item.style.transform = "scale(0.9)";
+                    item.style.opacity = "0"; item.style.transform = "scale(0.95)";
                     setTimeout(() => { item.classList.add("d-none"); }, 300); 
                 }
             });
@@ -66,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 5. TYPEWRITER EFFECT
+    // 4. TYPEWRITER EFFECT
     const textElement = document.getElementById("dynamic-text");
     if(textElement) {
         const words = ["Refined.", "Elevated.", "Mastered.", "Discovered."];
@@ -84,21 +68,24 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(typeEffect, 1000);
     }
 
-    // 6. SCROLL REVEAL & COUNTERS
-    const revealElements = document.querySelectorAll(".reveal");
+    // 5. SCROLL REVEAL & BLUR REVEAL & COUNTERS
+    const revealElements = document.querySelectorAll(".reveal, .reveal-blur");
     const counters = document.querySelectorAll(".counter");
     
     const revealOnScroll = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (!entry.isIntersecting) return;
+            
             entry.target.classList.add("active");
             
             if(entry.target.querySelector('.counter')) {
-                counters.forEach(counter => {
+                const targetCounters = entry.target.querySelectorAll('.counter');
+                targetCounters.forEach(counter => {
                     const updateCount = () => {
                         const target = +counter.getAttribute('data-target');
                         const count = +counter.innerText;
                         const inc = target / 40; 
+                        
                         if (count < target) {
                             counter.innerText = Math.ceil(count + inc);
                             setTimeout(updateCount, 40);
@@ -115,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     revealElements.forEach(el => revealOnScroll.observe(el));
 
-    // 7. GOLD PARTICLE NETWORK (Smart Performance Update)
+    // 6. GOLD PARTICLE NETWORK
     const canvas = document.getElementById('particle-canvas');
     if(canvas) {
         const ctx = canvas.getContext('2d');
@@ -171,7 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         
-        // Smart Performance: Stop canvas animation when scrolled past hero
         const heroObserver = new IntersectionObserver((entries) => {
             isHeroVisible = entries[0].isIntersecting;
             if (isHeroVisible) { animate(); } 

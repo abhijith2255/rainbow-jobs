@@ -28,4 +28,5 @@ urlpatterns = [
     # Add this inside your urlpatterns list:
     path('candidate/<str:username>/', views.public_profile, name='public_profile'),
     path('search/', views.job_search, name='job_search'),
+    path('api/jobs/', views.api_get_jobs, name='api_jobs'),
 ]

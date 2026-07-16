@@ -466,3 +466,39 @@ def job_search(request):
         'result_count': jobs.count()
     }
     return render(request, 'search_results.html', context)
+
+from django.http import JsonResponse
+from django.db.models import Q
+from .models import Job
+
+def api_get_jobs(request):
+    """AJAX endpoint that returns job data as JSON."""
+    category = request.GET.get('category', 'all')
+    search_query = request.GET.get('q', '')
+
+    jobs = Job.objects.filter(is_active=True).order_by('-created_at')
+
+    # Apply Filters
+    if category != 'all':
+        jobs = jobs.filter(category__name__iexact=category)
+    if search_query:
+        jobs = jobs.filter(
+            Q(title__icontains=search_query) | 
+            Q(company_name__icontains=search_query)
+        )
+
+    # Convert job objects to a list of dictionaries for JSON
+    jobs_data = []
+    for job in jobs[:12]: # Fetch top 12 results dynamically
+        jobs_data.append({
+            'id': job.id,
+            'title': job.title.title(),
+            'company': job.company_name or 'Confidential',
+            'location': job.location,
+            'salary': str(job.salary),
+            'category': job.category.name.title() if job.category else 'General',
+            # Adjust the URL logic if your detail URL is named differently
+            'url': f'/job/{job.id}/' 
+        })
+
+    return JsonResponse({'jobs': jobs_data})
